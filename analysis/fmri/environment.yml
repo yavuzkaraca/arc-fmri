@@ -1,0 +1,30 @@
+name: ARC-fMRI
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  # Jupyter
+  - notebook
+  - jupyterlab
+  - ipywidgets
+  - ipykernel
+  # Neuroimaging
+  - nilearn          # fMRI analysis, masking, GLM, signal extraction, tSNR
+  - nipype           # neuroimaging workflow engine; interfaces to FSL, SPM, ANTs etc.
+  - pybids           # BIDS dataset querying and validation
+  - pydicom          # DICOM inspection for scan QC / sequence metadata
+  # Scientific computing
+  - numpy
+  - scipy            # t-tests; scipy.io.loadmat for old .mat files
+  - h5py             # .mat v7.3 files (HDF5-based)
+  # Statistics
+  - statsmodels      # GLM, FDR correction
+  - pingouin         # t-tests with Cohen's d, CI
+  # Visualization
+  - seaborn
+  # Data & config
+  - pandas
+  - python-dotenv    # load private paths from .env
+  - pip
+  - pip:
+    - mat73          # MATLAB v7.3 .mat file loader (HDF5-based)
