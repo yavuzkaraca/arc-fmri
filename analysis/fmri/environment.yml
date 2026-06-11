@@ -25,6 +25,8 @@ dependencies:
   # Data & config
   - pandas
   - python-dotenv    # load private paths from .env
+  - dcm2niix
+  - dcm2bids
   - pip
   - pip:
     - mat73          # MATLAB v7.3 .mat file loader (HDF5-based)
