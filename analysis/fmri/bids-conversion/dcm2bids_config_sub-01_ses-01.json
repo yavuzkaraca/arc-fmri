@@ -1,78 +1,11 @@
 {
   "descriptions": [
     {
-      "datatype": "func",
-      "suffix": "bold",
-      "custom_entities": [
-        "task-arc",
-        "2p0mm"
-      ],
+      "datatype": "anat",
+      "suffix": "T1w",
       "criteria": {
-        "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_2mm_PRG",
-        "SeriesNumber": "6"
-      },
-      "sidecar_changes": {
-        "TaskName": "arc"
-      }
-    },
-    {
-      "datatype": "func",
-      "suffix": "bold",
-      "custom_entities": [
-        "task-arc",
-        "2p0mm"
-      ],
-      "criteria": {
-        "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_2mm_PRG",
-        "SeriesNumber": "8"
-      },
-      "sidecar_changes": {
-        "TaskName": "arc"
-      }
-    },
-    {
-      "datatype": "func",
-      "suffix": "bold",
-      "custom_entities": [
-        "task-arc",
-        "2p5mm"
-      ],
-      "criteria": {
-        "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_2.5mm_PRG",
-        "SeriesNumber": "10"
-      },
-      "sidecar_changes": {
-        "TaskName": "arc"
-      }
-    },
-    {
-      "datatype": "func",
-      "suffix": "bold",
-      "custom_entities": [
-        "task-arc",
-        "2p5mm"
-      ],
-      "criteria": {
-        "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_2.5mm_PRG",
-        "SeriesNumber": "12"
-      },
-      "sidecar_changes": {
-        "TaskName": "arc"
-      }
-    },
-    {
-      "datatype": "func",
-      "suffix": "bold",
-      "custom_entities": [
-        "task-arc",
-        "3p0mm"
-      ],
-      "criteria": {
-        "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_3.0mm_PRG",
-        "SeriesNumber": "14"
-      },
-      "sidecar_changes": {
-        "TaskName": "arc"
+        "SeriesDescription": "ADNI_192slices_20channel",
+        "SeriesNumber": "3"
       }
     }
   ]
