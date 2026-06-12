@@ -50,6 +50,20 @@ Each fMRI protocol is preprocessed separately using a `--bids-filter-file` to re
 
 The conda environment is used only for **post-fmriprep** analysis (nilearn, statistics, visualisation).
 
+## BIDS conversion (dcm2bids)
+
+Raw DICOMs are converted to BIDS format using `dcm2bids` (which calls `dcm2niix` internally — do not run dcm2niix separately).
+
+- Config file: `bids-conversion/dcm2bids_config.json` — one entry per fMRI sequence; `acq-` entity distinguishes sequences acquired within the same session
+- SLURM script: `scripts/run_dcm2bids.sh` — one job per subject-session pair; edit the `PAIRS` array to add new combinations
+- Before adding a new sequence type to the config, run `dcm2bids_helper` on a representative session to inspect the available `SeriesDescription` values in `tmp_dcm2bids/helper/*.json`
+- Aborted or failed scans are converted like any other run and excluded later via the scan manifest
+
+To scaffold a fresh BIDS directory (run once):
+```bash
+dcm2bids_scaffold --output_dir $BIDS_ROOT
+```
+
 ## Planned source files
 
 - `src/parse_mat_events.py` — converts `.mat` stimulus files to BIDS `_events.tsv`
