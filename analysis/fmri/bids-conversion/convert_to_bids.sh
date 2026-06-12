@@ -3,16 +3,16 @@ set -o allexport
 source ../.env
 set +o allexport
 
-##### SUB-00 #####
-# 2026-04-27
-dcm2bids \
-    -d $SOURCE_DATA_DIR/2NH5-5UKW/NII \
-    -p sub-00 \
-    -c dcm2bids_config_sub-00.json \
-    -o $BIDS_ROOT_DIR \
-    --auto_extract_entities \
-    --skip_dcm2niix \
-    --force_dcm2bids
+# ##### SUB-00 #####
+# # 2026-04-27
+# dcm2bids \
+#     -d $SOURCE_DATA_DIR/2NH5-5UKW/NII \
+#     -p sub-00 \
+#     -c dcm2bids_config_sub-00.json \
+#     -o $BIDS_ROOT_DIR \
+#     --auto_extract_entities \
+#     --skip_dcm2niix \
+#     --force_dcm2bids
 
 ##### SUB-01 #####
 
