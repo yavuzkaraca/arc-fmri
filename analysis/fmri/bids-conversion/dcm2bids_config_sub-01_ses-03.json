@@ -5,7 +5,7 @@
       "suffix": "bold",
       "custom_entities": [
         "task-arc",
-        "2p0mm"
+        "acq-2p0mm64ch"
       ],
       "criteria": {
         "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_2mm_PRG",
@@ -20,7 +20,7 @@
       "suffix": "bold",
       "custom_entities": [
         "task-arc",
-        "2p0mm"
+        "acq-2p0mm64ch"
       ],
       "criteria": {
         "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_2mm_PRG",
@@ -35,7 +35,7 @@
       "suffix": "bold",
       "custom_entities": [
         "task-arc",
-        "2p5mm"
+        "acq-2p5mm64ch"
       ],
       "criteria": {
         "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_2.5mm_PRG",
@@ -50,7 +50,7 @@
       "suffix": "bold",
       "custom_entities": [
         "task-arc",
-        "2p5mm"
+        "acq-2p5mm64ch"
       ],
       "criteria": {
         "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_2.5mm_PRG",
@@ -65,7 +65,7 @@
       "suffix": "bold",
       "custom_entities": [
         "task-arc",
-        "3p0mm"
+        "acq-3p0mm64ch"
       ],
       "criteria": {
         "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_3.0mm_PRG",
