@@ -3,6 +3,9 @@
     {
       "datatype": "anat",
       "suffix": "T1w",
+      "custom_entities": [
+        "acq-192slices20ch"
+      ],
       "criteria": {
         "SeriesDescription": "ADNI_192slices_20channel",
         "SeriesNumber": "3"
