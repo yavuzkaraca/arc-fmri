@@ -22,7 +22,6 @@ conda env create -f environment.yml
 ## Server paths and privacy
 
 All paths to data directories on the server are stored in `.env` (never committed to git).
-`.env.example` shows the required variables with empty values — copy it to `.env` and fill in the paths.
 
 **Never hardcode server paths in scripts or notebooks. Never commit `.env`.**
 
@@ -31,10 +30,10 @@ Load paths in Python:
 from dotenv import load_dotenv
 import os
 load_dotenv()
-bids_root = os.environ["BIDS_ROOT"]
+bids_root = os.environ["BIDS_ROOT_DIR"]
 ```
 
-Key path variables: `BIDS_ROOT`, `RAW_DATA_DIR`, `MAT_FILES_DIR`, `FMRIPREP_OUTPUT_DIR`, `FMRIPREP_SIF`, `FREESURFER_LICENSE`.
+Key path variables: `BIDS_ROOT_DIR`, `SOURCE_DATA_DIR`, `MAT_FILES_DIR`, `FMRIPREP_OUTPUT_DIR`, `FMRIPREP_SIF`, `FREESURFER_LICENSE`.
 
 ## Data conventions
 
@@ -61,7 +60,7 @@ Raw DICOMs are converted to BIDS format using `dcm2bids` (which calls `dcm2niix`
 
 To scaffold a fresh BIDS directory (run once):
 ```bash
-dcm2bids_scaffold --output_dir $BIDS_ROOT
+dcm2bids_scaffold --output_dir $BIDS_ROOT_DIR
 ```
 
 ## Planned source files
