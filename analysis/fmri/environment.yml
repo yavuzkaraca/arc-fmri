@@ -13,15 +13,17 @@ dependencies:
   - nipype           # neuroimaging workflow engine; interfaces to FSL, SPM, ANTs etc.
   - pybids           # BIDS dataset querying and validation
   - pydicom          # DICOM inspection for scan QC / sequence metadata
+  - nibabel          # NIfTI header inspection (e.g. volume counts for QC)
   # Scientific computing
   - numpy
-  - scipy            # t-tests; scipy.io.loadmat for old .mat files
+  - scipy            # t-tests; scipy.io.loadmat for old .mat files; linear_sum_assignment
   - h5py             # .mat v7.3 files (HDF5-based)
   # Statistics
   - statsmodels      # GLM, FDR correction
   - pingouin         # t-tests with Cohen's d, CI
   # Visualization
   - seaborn
+  - matplotlib
   # Data & config
   - pandas
   - python-dotenv    # load private paths from .env
