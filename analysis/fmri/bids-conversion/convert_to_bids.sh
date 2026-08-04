@@ -65,3 +65,20 @@ dcm2bids \
     --force_dcm2bids \
     --clobber
 check_unmatched
+
+##### SUB-03 #####
+
+# --- ses-01 --- #
+# 2026-08-04
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/UYZF-NBPO/NII \
+    -p sub-03 \
+    -s ses-01 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-03_ses-01.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched
