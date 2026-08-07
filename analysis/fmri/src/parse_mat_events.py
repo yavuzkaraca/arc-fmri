@@ -55,18 +55,37 @@ def trials_to_events(log: dict) -> pd.DataFrame:
     # duration is derived empirically from consecutive same-phase onsets
     # instead of being hardcoded -- this keeps the pipeline correct even if
     # the constant changes in a future session.
-    same_phase_next = (
-        (trials["block_id"] == trials["block_id"].shift(-1))
-        & (trials["phase_index"] == trials["phase_index"].shift(-1))
-    )
+    if 'block_index' in trials.columns:
+        trials['block_id'] = trials['block_index']
+        same_phase_next = (
+            (trials["block_id"] == trials["block_id"].shift(-1))
+            & ((trials["block_id"].diff() == 0) == (trials["block_id"].diff() == 0).shift(-1))
+        )
+
+    else:
+        same_phase_next = (
+            (trials["block_id"] == trials["block_id"].shift(-1))
+            & (trials["phase_index"] == trials["phase_index"].shift(-1))
+        )
+
+    
+
     diffs = np.diff(onsets)[same_phase_next.to_numpy()[:-1]]
+
     if len(diffs) == 0:
         raise ValueError("Could not determine trial duration: no within-phase consecutive trials found.")
     trial_duration = round(float(np.median(diffs)), 3)
 
-    trial_type = trials["phase"].apply(
+    if 'phase' in trials.columns:
+        trial_type = trials["phase"].apply(
         lambda p: "inference" if p.startswith("inference") else "application"
     )
+    elif 'context' in trials.columns:
+        trial_type = list(trials['context'])
+        trials['phase'] = trials.apply(
+            lambda x: f"{x['context']}_{x['trial_role']}", 
+            axis=1
+        )
 
     def fmt_rt(rt):
         return "n/a" if rt is None or (isinstance(rt, float) and np.isnan(rt)) else round(float(rt), 3)
@@ -84,7 +103,7 @@ def trials_to_events(log: dict) -> pd.DataFrame:
         "accuracy": trials["is_correct"].apply(fmt_correct),
         "block_id": trials["block_id"],
         "phase": trials["phase"],
-        "trial_family": trials["trial_family"],
+        "trial_family": trials["block_family"],
         "rule": trials["rule"],
     })
 
