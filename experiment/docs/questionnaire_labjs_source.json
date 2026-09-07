@@ -3,7 +3,7 @@
     "1": {
       "id": "1",
       "type": "lab.html.Form",
-      "content": "<form>\n  <section class=\"survey-section\">\n    <h2>General Strategy</h2>\n\n    <div class=\"question\">\n      <label for=\"A1\">\n        <strong>\n          Did you use a specific strategy to work out the rule shown in a pair of images? Could you describe your strategy?\n        </strong>\n      </label>\n\n      <textarea\n        class=\"text-answer\"\n        id=\"A1\"\n        name=\"A1\"\n        rows=\"5\"\n        required\n      ></textarea>\n    </div>\n\n    <div class=\"question\">\n      <label for=\"A2\">\n        <strong>\n          Did your strategy differ between the two kinds of blocks? If so, could you describe in what way your strategies differed?\n        </strong>\n\n        <span class=\"question-note\">\n          Comparing to the previous pair vs. the first pair.\n        </span>\n      </label>\n\n      <textarea\n        class=\"text-answer\"\n        id=\"A2\"\n        name=\"A2\"\n        rows=\"5\"\n        required\n      ></textarea>\n    </div>\n\n    <div class=\"question\">\n      <label for=\"A3\">\n        <strong>\n          Which of these two kinds of blocks felt easier, and why?\n        </strong>\n      </label>\n\n      <textarea\n        class=\"text-answer\"\n        id=\"A3\"\n        name=\"A3\"\n        rows=\"5\"\n        required\n      ></textarea>\n    </div>\n\n    <div class=\"form-actions\">\n      <button type=\"submit\">Next</button>\n    </div>\n  </section>\n</form>",
+      "content": "<form>\n    <h2>General Strategy</h2>\n\n    <div class=\"question\">\n      <label for=\"A2\">\n        <strong>\n          Did you use a specific strategy to work out the rule shown in a pair of images? Could you describe your strategy?\n        </strong>\n      </label>\n\n      <textarea\n        class=\"text-answer\"\n        id=\"A2\"\n        name=\"A2\"\n        rows=\"5\"\n        required\n      ></textarea>\n    </div>\n\n    <div class=\"question\">\n      <label for=\"A3\">\n        <strong>\n          Did your strategy differ between the two kinds of blocks? If so, could you describe in what way your strategies differed?\n        </strong>\n\n        <span class=\"question-note\">\n          Comparing to the previous pair vs. the first pair.\n        </span>\n      </label>\n\n      <textarea\n        class=\"text-answer\"\n        id=\"A3\"\n        name=\"A3\"\n        rows=\"5\"\n        required\n      ></textarea>\n    </div>\n\n    <div class=\"question\">\n      <label for=\"A4\">\n        <strong>\n          Which of these two kinds of blocks felt easier, and why?\n        </strong>\n      </label>\n\n      <textarea\n        class=\"text-answer\"\n        id=\"A4\"\n        name=\"A4\"\n        rows=\"5\"\n        required\n      ></textarea>\n    </div>\n\n    <div class=\"form-actions\">\n      <button type=\"submit\">Next</button>\n    </div>\n  </section>\n</form>",
       "scrollTop": true,
       "files": [],
       "responses": [
@@ -28,7 +28,7 @@
           "code": ""
         }
       ],
-      "title": "2. General Strategy",
+      "title": "3. General Strategy",
       "_tab": "Content"
     },
     "2": {
@@ -112,7 +112,7 @@
           "code": ""
         }
       ],
-      "title": "3. Rule Descriptions - Intro",
+      "title": "4. Rule Descriptions - Intro",
       "_tab": "Content"
     },
     "4": {
@@ -312,8 +312,38 @@
           "code": ""
         }
       ],
-      "title": "4. Rule Description - Form",
+      "title": "5. Rule Description - Form",
       "_tab": "Content"
+    },
+    "5": {
+      "id": "5",
+      "type": "lab.html.Form",
+      "content": "<main>\n  <form>\n    <h2>Handedness</h2>\n\n    <p> Please indicate your handedness.</p>\n\n    <input name=\"handedness\" type=\"radio\" value=\"right\">right<br><br>\n    <input name=\"handedness\" type=\"radio\" value=\"left\">left<br><br>\n    <input name=\"handedness\" type=\"radio\" value=\"ambidextrous\">ambidextrous<br><br>\n    \n    <button type=\"submit\">Submit</button>\n  </form>\n</main>\n",
+      "scrollTop": true,
+      "files": [],
+      "responses": [
+        {
+          "label": "",
+          "event": "",
+          "target": "",
+          "filter": ""
+        }
+      ],
+      "parameters": [
+        {
+          "name": "",
+          "value": "",
+          "type": "string"
+        }
+      ],
+      "messageHandlers": [
+        {
+          "title": "",
+          "message": "",
+          "code": ""
+        }
+      ],
+      "title": "2. Handedness"
     },
     "18": {
       "id": "18",
@@ -343,7 +373,7 @@
           "code": "const ds = this.options.datastore\r\n\r\nconst participantId = ds.get('participant_id') || 'unknown'\r\nconst date = new Date().toISOString().slice(0, 10)\r\n\r\nconst filename = `ARC_questionnaire_${participantId}_${date}.csv`\r\n\r\n// Emergency backups\r\nconsole.log('=== LABJS CSV BACKUP ===')\r\nconsole.log(ds.exportCsv())\r\n\r\nconsole.log('=== LABJS JSON BACKUP ===')\r\nconsole.log(ds.exportJson())\r\n\r\n// Normal save\r\nds.download('csv', filename)"
         }
       ],
-      "title": "5. Thank you",
+      "title": "6. Thank you",
       "_tab": "Content"
     },
     "29": {
@@ -383,6 +413,7 @@
       "type": "lab.flow.Sequence",
       "children": [
         "29",
+        "5",
         "1",
         "3",
         "2",
