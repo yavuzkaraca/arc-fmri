@@ -8,7 +8,7 @@ SHAPE_DIRECTIONS = {
 }
 
 
-def generate_color_inversion(object_num=(3, 4)):
+def generate_color_inversion(object_num=(3, 5)):
     grid_input, grid_output, placed = _generate_cross_plus_input(object_num)
 
     for _, cells, color in placed:
@@ -26,7 +26,7 @@ def generate_color_inversion(object_num=(3, 4)):
     return grid_input, grid_output, params
 
 
-def generate_touching_edges_recolor(object_num=(3, 4)):
+def generate_touching_edges_recolor(object_num=(3, 5)):
     grid_input, grid_output, placed = _generate_cross_plus_input(object_num)
 
     for i, (_, cells, _) in enumerate(placed):
@@ -50,7 +50,7 @@ def generate_touching_edges_recolor(object_num=(3, 4)):
     return grid_input, grid_output, params
 
 
-def generate_shape_color_mapping(object_num=(3, 4)):
+def generate_shape_color_mapping(object_num=(3, 5)):
     grid_input, grid_output, placed = _generate_cross_plus_input(object_num)
 
     shape_colors = {
@@ -75,16 +75,16 @@ def generate_shape_color_mapping(object_num=(3, 4)):
 def _generate_cross_plus_input(object_num):
     """
     Generate cross/plus objects guaranteeing:
-    - at least one touching pair
-    - at least one isolated object
+    - at least one edge-touching pair
+    - at least one object without edge contact
     - same-shaped objects with different colors
-    - touching objects with different colors
+    - edge-touching objects with different colors and different shapes
+
+    If avoid_corner_only is True, reject corner-only contact between
+    objects, so isolated objects have neither edge nor corner contact.
     """
     while True:
         n_objects = rand_between(*object_num)
-
-        if n_objects < 3:
-            raise ValueError("cross_plus recolor requires at least 3 objects")
 
         grid_input, grid_output = make_grids()
         placed = _place_cross_plus_objects(grid_input, n_objects)
@@ -92,7 +92,13 @@ def _generate_cross_plus_input(object_num):
         if len(placed) != n_objects:
             continue
 
+        if _has_corner_only_contact(placed):
+            continue
+
         if not _has_touching_pair_and_isolated_object(placed):
+            continue
+
+        if not _has_touching_different_shapes(placed):
             continue
 
         while True:
@@ -102,8 +108,8 @@ def _generate_cross_plus_input(object_num):
             ]
 
             if (
-                    _has_same_shape_different_colors(colored)
-                    and _has_touching_different_colors(colored)
+                _has_same_shape_different_colors(colored)
+                and _has_touching_different_shapes_and_colors(colored)
             ):
                 break
 
@@ -157,6 +163,27 @@ def _objects_touch(cells1, cells2):
     return False
 
 
+def _has_corner_only_contact(placed):
+    """Return True if any two objects touch diagonally but not along an edge."""
+    for i, (_, cells1) in enumerate(placed):
+        for _, cells2 in placed[i + 1:]:
+            if _objects_touch(cells1, cells2):
+                continue
+
+            cells2 = set(cells2)
+
+            if any(
+                (row + d_row, col + d_col) in cells2
+                for row, col in cells1
+                for d_row, d_col in (
+                    (1, 1), (1, -1), (-1, 1), (-1, -1)
+                )
+            ):
+                return True
+
+    return False
+
+
 def _has_touching_pair_and_isolated_object(placed):
     touched = [False] * len(placed)
 
@@ -179,9 +206,19 @@ def _has_same_shape_different_colors(placed):
     )
 
 
-def _has_touching_different_colors(placed):
+def _has_touching_different_shapes(placed):
     return any(
-        color1 != color2 and _objects_touch(cells1, cells2)
-        for i, (_, cells1, color1) in enumerate(placed)
-        for _, cells2, color2 in placed[i + 1:]
+        shape1 != shape2 and _objects_touch(cells1, cells2)
+        for i, (shape1, cells1) in enumerate(placed)
+        for shape2, cells2 in placed[i + 1:]
+    )
+
+
+def _has_touching_different_shapes_and_colors(placed):
+    return any(
+        shape1 != shape2
+        and color1 != color2
+        and _objects_touch(cells1, cells2)
+        for i, (shape1, cells1, color1) in enumerate(placed)
+        for shape2, cells2, color2 in placed[i + 1:]
     )
