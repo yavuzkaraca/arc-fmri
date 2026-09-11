@@ -7,7 +7,7 @@ function config = default_config()
 
     % ---- general config ----
     config.skip_sync_tests = 0; % 0 in production
-    config.rest_time = 10; % 10 in production
+    config.rest_time = 5; % 5 in production
     config.response_time_window = 10; % 10 in production
 
     % ---- screen config ----
