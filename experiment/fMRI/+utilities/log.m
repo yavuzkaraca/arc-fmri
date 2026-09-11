@@ -15,6 +15,7 @@ function log = init_log(session,config)
     log.session.number_of_trials_per_block = session.number_of_trials_per_block;
     log.session.number_of_blocks = session.number_of_blocks;
     log.session.number_of_trials_total = session.number_of_trials_total;
+    log.session.button_mapping = session.button_mapping;
     log.session.keys = config.keys;
 
     log.trials = repmat(utilities.log.trial_template(), 0, 1);
@@ -67,8 +68,8 @@ function trial = make_trial( ...
     trial.imgs = utilities.log.get_field_strarr(trialData, 'imgs');
     trial.correct = utilities.log.get_field_str(trialData, 'correct');
 
-    trial.resp = utilities.log.normalize_response(block.context, isInitialTrial, string(response));
-    trial.all_responses = utilities.log.normalize_responses(block.context, isInitialTrial, allResponses);  
+    trial.resp          = utilities.log.normalize_response(isInitialTrial, string(response));
+    trial.all_responses = utilities.log.normalize_responses(isInitialTrial, allResponses);
     trial.all_rts = allReactionTimes;
     trial.rt = reactionTime;
     trial.is_correct = utilities.log.score(trial.resp, trial.correct);
@@ -162,21 +163,15 @@ function trialId = make_trial_id(blockId, trialIndex)
     trialId = sprintf('%d_%d', blockId, trialIndex);
 end
 
-
-function resp = normalize_response(context, isInitialTrial, resp)
-    if resp == "timeout" || ~isInitialTrial
-        return
-    end
-
-    switch context
-        case 'inference',    resp = "ready";
-        case 'application',  resp = "memorized";
+function resp = normalize_response(isInitialTrial, resp)
+    if isInitialTrial && resp ~= "timeout"
+        resp = "ready";
     end
 end
 
-function responses = normalize_responses(context, isInitialTrial, responses)
+function responses = normalize_responses(isInitialTrial, responses)
     for i = 1:numel(responses)
-        responses(i) = utilities.log.normalize_response(context, isInitialTrial, responses(i));
+        responses(i) = utilities.log.normalize_response(isInitialTrial, responses(i));
     end
 end
 

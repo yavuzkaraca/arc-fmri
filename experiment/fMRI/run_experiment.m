@@ -6,9 +6,10 @@ config = utilities.session.default_config();
 
 try
     session = jsondecode(fileread(sessionPath));
-    keys = utilities.session.setup_keys(config);
+    keys = utilities.session.setup_keys(config, session.button_mapping);
     [window, windowRect] = utilities.screen.setup_window(config);
     textureCache = utilities.session.preload_textures(session, sessionPath, window);
+    ctx = utilities.screen.make_ctx(window, windowRect, textureCache, session.button_mapping, keys);
 
     experimentLog = utilities.log.init_log(session, config);
     [experimentStartTime, scannerSync, eyelink] = prepare_experiment();
@@ -79,18 +80,11 @@ function trial = run_trial(block, trialIndex, trialData)
     trialId = utilities.log.make_trial_id(block.block_index, trialIndex -1); % matlab index starts at 1. I like 0 better.
     utilities.eyelink.eyelink_trial_id(config, trialId);
 
-    [response, reactionTime, stimulusOnsetTime, ...
-    allResponses, allReactionTimes] = ...
-    utilities.screen.trial_screen( ...
-        window, windowRect, block, trialIndex, trialData, textureCache, ...
-        keys.sameResponse, keys.differentResponse, keys.escape, ...
-        config.response_time_window);
+    [response, reactionTime, stimulusOnsetTime, allResponses, allReactionTimes] = ...
+    utilities.screen.trial_screen(ctx, block, trialIndex, trialData, config.response_time_window);
 
-
-    trial = utilities.log.make_trial( ...
-        block, trialIndex, trialData, ...
-        response, reactionTime, stimulusOnsetTime, experimentStartTime, ...
-        allResponses, allReactionTimes);
+    trial = utilities.log.make_trial(block, trialIndex, trialData,response, reactionTime, stimulusOnsetTime, ...
+        experimentStartTime, allResponses, allReactionTimes);
 end
 
 

@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     stimulus_dataset_dir: str = "stimuli"  # rename the folder later
     output_dir: str = "."
-    participant: str = "p01"  # must be "pXX" where X is a digit
+    participant: str = "p03"  # must be "pXX" where X is a digit
 
     number_of_sessions: int = 8  # must be even number for balancing blocks
     number_of_decision_trials_per_block: int = 8  # decision trials > 2 * number of rules in a family
@@ -25,6 +25,12 @@ if __name__ == "__main__":
         context_frame_colors = {"inference": "cyan", "application": "yellow"}
     else:
         context_frame_colors = {"inference": "yellow", "application": "cyan"}
+
+    # Counterbalance button mapping (same/different → left/right physical buttons)
+    if (int(participant.removeprefix("p")) - 1) // 2 % 2 == 0:
+        button_mapping = {"same": "left", "different": "right"}
+    else:
+        button_mapping = {"same": "right", "different": "left"}
 
     # ------------------------------------------------------------------ #
     # Setup                                                              #
@@ -282,6 +288,7 @@ if __name__ == "__main__":
 
         session = {
             "participant": participant,
+            "button_mapping": button_mapping,
             "seed": seed,
             "starting_context": starting_context,
             "number_of_decision_trials_per_block": number_of_decision_trials_per_block,
