@@ -52,10 +52,10 @@ def _generate_dot_arithmetic_recolor(operation, count_range):
 
     majority_color, minority_color = random.sample(COLORS[:2], 2)
 
-    all_positions = random.sample(
-        grid_input.get_coordinates(),
-        n_majority + n_minority,
-    )
+    # One dot for each row and column.
+    rows = random.sample(range(grid_input.rows), n_majority + n_minority)
+    cols = random.sample(range(grid_input.cols), n_majority + n_minority)
+    all_positions = list(zip(rows, cols))
 
     majority_positions = all_positions[:n_majority]
     minority_positions = all_positions[n_majority:]
