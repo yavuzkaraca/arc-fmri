@@ -45,9 +45,13 @@
   boxrule=0.5pt, arc=1.5pt, left=8pt, right=8pt, top=6pt, bottom=6pt,
   before skip=8pt, after skip=10pt
 }
-\newcommand{\noteheader}[1]{\textbf{\small\color{notehead}#1}\par\vspace{4pt}}
 
-\newcommand{\swatch}[1]{\tikz[baseline=-0.6ex]{\fill[#1] (0,0) rectangle (0.5cm,0.4cm); \draw[black!40] (0,0) rectangle (0.5cm,0.4cm);}}
+\newcommand{\swatch}[1]{%
+    \tikz[baseline=2pt]{%
+        \fill[#1] (0,0) rectangle (0.5cm,0.5cm);
+        \draw[black!40] (0,0) rectangle (0.5cm,0.5cm);
+    }%
+}
 
 \pagestyle{plain}
 
@@ -57,19 +61,52 @@
 \vspace{3pt}
 {\color{accent}\rule{\linewidth}{1pt}}
 
-\section*{1. Colour mapping reference}
-Frame colours swap between the versions. Check which applies to \textbf{this} participant.
+\section*{1. Counterbalancing reference}
+
+Frame colours and button mappings vary between participant versions.
+Check which version applies to \textbf{this} participant.
 
 \vspace{6pt}
+
 \noindent
-\begin{tabular}{@{}l c l c l@{}}
-& \multicolumn{2}{c}{``Previous'' blocks} & \multicolumn{2}{c}{``First'' blocks} \\
-\textbf{Version A} (odd participant \#) & \swatch{colYellow} & Yellow & \swatch{colCyan} & Cyan \\
-\textbf{Version B} (even participant \#) & \swatch{colCyan} & Cyan & \swatch{colYellow} & Yellow \\
+\begin{tabular}{@{}l l c l c l l@{}}
+& & \multicolumn{2}{c}{``Previous''} & \multicolumn{2}{c}{``First''} & \textbf{Responses} \\
+
+\vspace{2pt}
+
+\textbf{Version A}
+& (p01, p05, \ldots)
+& \swatch{colYellow} & Yellow
+& \swatch{colCyan} & Cyan
+& Left = Same,\quad Right = Different \\
+
+\vspace{2pt}
+
+\textbf{Version B}
+& (p02, p06, \ldots)
+& \swatch{colCyan} & Cyan
+& \swatch{colYellow} & Yellow
+& Left = Same,\quad Right = Different \\
+
+\vspace{2pt}
+
+\textbf{Version C}
+& (p03, p07, \ldots)
+& \swatch{colYellow} & Yellow
+& \swatch{colCyan} & Cyan
+& Left = Different,\quad Right = Same \\
+
+\vspace{2pt}
+
+\textbf{Version D}
+& (p04, p08, \ldots)
+& \swatch{colCyan} & Cyan
+& \swatch{colYellow} & Yellow
+& Left = Different,\quad Right = Same \\
 \end{tabular}
 
-\section*{2. Before the session}
-Give the participant the \texttt{Task\_Instructions} handout matching their participant number and go through it together and answer any questions. Remind the participant that they can always check the button labels and block hints during the task, so they do not need to memorize them. At this stage, they only need to understand the task correctly. Once the participant understands the task, begin the practice trials and follow the feedback protocol below. 
+\section*{2. Instructions}
+Give the participant the \texttt{Task\_Instructions} handout matching their participant number and go through it together and answer any questions. Remind the participant that they can always check the button labels and block hints during the task, so they do not need to memorize them. At this stage, they only need to understand the task correctly. Once the participant understands the task, begin the practice trials and follow the feedback protocol below.
 
 \section*{3. Feedback protocol during training}
 % \noindent\textbf{If participant asks:}
@@ -108,4 +145,19 @@ Right now you're comparing to the the rule from the [previous trial / first tria
 \sayheader
 Remember, the top and bottom picture are always two examples of the same rule.
 \end{saybox}
+
+
+\section*{4. Before the scan}
+
+Before bringing the participant into the scanner room:
+
+\begin{itemize}[leftmargin=1.5em]
+    \item Confirm that the participant understands the task and has completed the practice trials.
+
+    \item Confirm the participant number and corresponding colour mapping/version.
+
+    \item Make sure the correct participant session files are prepared.
+
+    \item Offer the participant the opportunity to use the bathroom before entering the scanner.
+\end{itemize}
 \end{document}

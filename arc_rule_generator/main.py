@@ -5,6 +5,10 @@ from stimulus import Stimulus
 from visualize import save_combined_grids
 
 from rules.arithmetic import (
+    generate_majority_in_big_overtakes,
+    generate_majority_in_small_overtakes,
+    generate_minority_in_small_overtakes,
+    generate_minority_in_big_overtakes,
     generate_minority_takeover,
     generate_majority_takeover,
     generate_equalize_colors,
@@ -63,6 +67,11 @@ RULES = {
     "arithmetic.equalize_colors": generate_equalize_colors,
     "arithmetic.increment_majority_color": generate_increment_majority_color,
     "arithmetic.increment_minority_color": generate_increment_minority_color,
+
+    "arithmetic.majority_in_big_overtakes": generate_majority_in_big_overtakes,
+    "arithmetic.majority_in_small_overtakes": generate_majority_in_small_overtakes,
+    "arithmetic.minority_in_small_overtakes": generate_minority_in_small_overtakes,
+    "arithmetic.minority_in_big_overtakes": generate_minority_in_big_overtakes,
 
     "recolor.shape_color_mapping": generate_shape_color_mapping,
     "recolor.touching_edges_recolor": generate_touching_edges_recolor,
