@@ -5,12 +5,12 @@ from stimulus import Stimulus
 from visualize import save_combined_grids
 
 from rules.arithmetic import (
-    generate_minority_takeover,
-    generate_majority_takeover,
-    generate_equalize_colors,
-    generate_increment_majority_color,
-    generate_increment_minority_color,
+    generate_majority_in_big_overtakes,
+    generate_majority_in_small_overtakes,
+    generate_minority_in_small_overtakes,
+    generate_minority_in_big_overtakes,
 )
+
 from rules.attraction import (
     generate_color_attraction,
     generate_size_attraction,
@@ -58,17 +58,15 @@ RULES = {
     "expansion.plus_ray": generate_plus_expansion_ray,
     "expansion.3_arm_star_ray": generate_3arm_star_expansion_ray,
 
-    "arithmetic.minority_takeover": generate_minority_takeover,
-    "arithmetic.majority_takeover": generate_majority_takeover,
-    "arithmetic.equalize_colors": generate_equalize_colors,
-    "arithmetic.increment_majority_color": generate_increment_majority_color,
-    "arithmetic.increment_minority_color": generate_increment_minority_color,
+    "arithmetic.majority_in_big_overtakes": generate_majority_in_big_overtakes,
+    "arithmetic.majority_in_small_overtakes": generate_majority_in_small_overtakes,
+    "arithmetic.minority_in_small_overtakes": generate_minority_in_small_overtakes,
+    "arithmetic.minority_in_big_overtakes": generate_minority_in_big_overtakes,
 
     "recolor.shape_color_mapping": generate_shape_color_mapping,
     "recolor.touching_edges_recolor": generate_touching_edges_recolor,
     "recolor.color_inversion": generate_color_inversion,
 }
-
 
 def main(n):
     for rule, generator in RULES.items():
@@ -100,4 +98,4 @@ def generate_stimulus(rule, generator, out_root="stimuli"):
 
 
 if __name__ == "__main__":
-    main(5)
+    main(50)

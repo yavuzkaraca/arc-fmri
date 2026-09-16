@@ -9,7 +9,7 @@ function log = init_log(session,config)
 
     log.session = struct();
     log.session.seed = session.seed;
-
+    log.session.button_mapping = session.button_mapping;
     log.session.starting_context = session.starting_context;
     log.session.number_of_decision_trials_per_block = session.number_of_decision_trials_per_block;
     log.session.number_of_trials_per_block = session.number_of_trials_per_block;
