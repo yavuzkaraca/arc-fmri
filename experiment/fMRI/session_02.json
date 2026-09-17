@@ -377,7 +377,7 @@
                   "red",
                   "blue"
                 ],
-                "n_objects": 4
+                "n_objects": 3
               }
             },
             {
@@ -390,7 +390,7 @@
                   "red",
                   "blue"
                 ],
-                "n_objects": 4
+                "n_objects": 3
               }
             }
           ]
@@ -414,7 +414,7 @@
                   "red",
                   "blue"
                 ],
-                "n_objects": 4
+                "n_objects": 3
               }
             },
             {
@@ -427,7 +427,7 @@
                   "red",
                   "blue"
                 ],
-                "n_objects": 4
+                "n_objects": 3
               }
             }
           ]
@@ -451,7 +451,7 @@
                   "red",
                   "blue"
                 ],
-                "n_objects": 4
+                "n_objects": 3
               }
             },
             {
@@ -488,7 +488,7 @@
                   "red",
                   "blue"
                 ],
-                "n_objects": 4
+                "n_objects": 3
               }
             },
             {
@@ -501,7 +501,7 @@
                   "red",
                   "blue"
                 ],
-                "n_objects": 4
+                "n_objects": 3
               }
             }
           ]
@@ -544,7 +544,7 @@
                   "red",
                   "blue"
                 ],
-                "n_objects": 4
+                "n_objects": 3
               }
             }
           ]
@@ -568,7 +568,7 @@
                   "red",
                   "blue"
                 ],
-                "n_objects": 4
+                "n_objects": 3
               }
             },
             {
@@ -581,7 +581,7 @@
                   "red",
                   "blue"
                 ],
-                "n_objects": 4
+                "n_objects": 3
               }
             }
           ]
@@ -651,7 +651,7 @@
                   "red",
                   "blue"
                 ],
-                "n_objects": 4
+                "n_objects": 3
               }
             },
             {
@@ -691,7 +691,7 @@
                   "red",
                   "blue"
                 ],
-                "n_objects": 4
+                "n_objects": 3
               }
             },
             {
@@ -704,7 +704,7 @@
                   "red",
                   "blue"
                 ],
-                "n_objects": 4
+                "n_objects": 3
               }
             }
           ]
@@ -1455,211 +1455,64 @@
       "trials": [
         {
           "imgs": [
-            "stimuli/arithmetic.equalize_colors/arithmetic.equalize_colors.t23.combined.png",
-            "stimuli/arithmetic.equalize_colors/arithmetic.equalize_colors.t16.combined.png"
-          ],
-          "family": "arithmetic",
-          "rule": "equalize_colors",
-          "correct": "",
-          "stimuli": [
-            {
-              "id": "arithmetic.equalize_colors.t23",
-              "params": {
-                "event": "recoloring",
-                "condition": [
-                  "color",
-                  "counting"
-                ],
-                "stimulus": "dots",
-                "colors": [
-                  "red",
-                  "blue"
-                ],
-                "n_objects": 8,
-                "counting_type": "soft",
-                "target": "equalize",
-                "n_recolored": 2
-              }
-            },
-            {
-              "id": "arithmetic.equalize_colors.t16",
-              "params": {
-                "event": "recoloring",
-                "condition": [
-                  "color",
-                  "counting"
-                ],
-                "stimulus": "dots",
-                "colors": [
-                  "blue",
-                  "red"
-                ],
-                "n_objects": 8,
-                "counting_type": "soft",
-                "target": "equalize",
-                "n_recolored": 2
-              }
-            }
-          ]
-        },
-        {
-          "imgs": [
-            "stimuli/arithmetic.equalize_colors/arithmetic.equalize_colors.t29.combined.png",
-            "stimuli/arithmetic.equalize_colors/arithmetic.equalize_colors.t44.combined.png"
-          ],
-          "family": "arithmetic",
-          "rule": "equalize_colors",
-          "correct": "same",
-          "stimuli": [
-            {
-              "id": "arithmetic.equalize_colors.t29",
-              "params": {
-                "event": "recoloring",
-                "condition": [
-                  "color",
-                  "counting"
-                ],
-                "stimulus": "dots",
-                "colors": [
-                  "blue",
-                  "red"
-                ],
-                "n_objects": 8,
-                "counting_type": "soft",
-                "target": "equalize",
-                "n_recolored": 2
-              }
-            },
-            {
-              "id": "arithmetic.equalize_colors.t44",
-              "params": {
-                "event": "recoloring",
-                "condition": [
-                  "color",
-                  "counting"
-                ],
-                "stimulus": "dots",
-                "colors": [
-                  "red",
-                  "blue"
-                ],
-                "n_objects": 8,
-                "counting_type": "soft",
-                "target": "equalize",
-                "n_recolored": 2
-              }
-            }
-          ]
-        },
-        {
-          "imgs": [
-            "stimuli/arithmetic.increment_minority_color/arithmetic.increment_minority_color.t33.combined.png",
-            "stimuli/arithmetic.increment_minority_color/arithmetic.increment_minority_color.t49.combined.png"
-          ],
-          "family": "arithmetic",
-          "rule": "increment_minority_color",
-          "correct": "different",
-          "stimuli": [
-            {
-              "id": "arithmetic.increment_minority_color.t33",
-              "params": {
-                "event": "recoloring",
-                "condition": [
-                  "color",
-                  "counting"
-                ],
-                "stimulus": "dots",
-                "colors": [
-                  "blue",
-                  "red"
-                ],
-                "n_objects": 5,
-                "counting_type": "soft",
-                "target": "minority_increment",
-                "n_recolored": 1
-              }
-            },
-            {
-              "id": "arithmetic.increment_minority_color.t49",
-              "params": {
-                "event": "recoloring",
-                "condition": [
-                  "color",
-                  "counting"
-                ],
-                "stimulus": "dots",
-                "colors": [
-                  "red",
-                  "blue"
-                ],
-                "n_objects": 7,
-                "counting_type": "hard",
-                "target": "minority_increment",
-                "n_recolored": 1
-              }
-            }
-          ]
-        },
-        {
-          "imgs": [
-            "stimuli/arithmetic.equalize_colors/arithmetic.equalize_colors.t21.combined.png",
-            "stimuli/arithmetic.equalize_colors/arithmetic.equalize_colors.t5.combined.png"
-          ],
-          "family": "arithmetic",
-          "rule": "equalize_colors",
-          "correct": "same",
-          "stimuli": [
-            {
-              "id": "arithmetic.equalize_colors.t21",
-              "params": {
-                "event": "recoloring",
-                "condition": [
-                  "color",
-                  "counting"
-                ],
-                "stimulus": "dots",
-                "colors": [
-                  "red",
-                  "blue"
-                ],
-                "n_objects": 8,
-                "counting_type": "soft",
-                "target": "equalize",
-                "n_recolored": 2
-              }
-            },
-            {
-              "id": "arithmetic.equalize_colors.t5",
-              "params": {
-                "event": "recoloring",
-                "condition": [
-                  "color",
-                  "counting"
-                ],
-                "stimulus": "dots",
-                "colors": [
-                  "blue",
-                  "red"
-                ],
-                "n_objects": 6,
-                "counting_type": "soft",
-                "target": "equalize",
-                "n_recolored": 2
-              }
-            }
-          ]
-        },
-        {
-          "imgs": [
-            "stimuli/arithmetic.majority_takeover/arithmetic.majority_takeover.t21.combined.png",
-            "stimuli/arithmetic.majority_takeover/arithmetic.majority_takeover.t13.combined.png"
+            "stimuli/arithmetic.majority_takeover/arithmetic.majority_takeover.t31.combined.png",
+            "stimuli/arithmetic.majority_takeover/arithmetic.majority_takeover.t50.combined.png"
           ],
           "family": "arithmetic",
           "rule": "majority_takeover",
-          "correct": "different",
+          "correct": "",
           "stimuli": [
             {
-              "id": "arithmetic.majority_takeover.t21",
+              "id": "arithmetic.majority_takeover.t31",
+              "params": {
+                "event": "recoloring",
+                "condition": [
+                  "color",
+                  "counting"
+                ],
+                "stimulus": "dots",
+                "colors": [
+                  "red",
+                  "blue",
+                  "yellow"
+                ],
+                "n_objects": 11,
+                "counting_type": "soft",
+                "n_recolored": 5
+              }
+            },
+            {
+              "id": "arithmetic.majority_takeover.t50",
+              "params": {
+                "event": "recoloring",
+                "condition": [
+                  "color",
+                  "counting"
+                ],
+                "stimulus": "dots",
+                "colors": [
+                  "yellow",
+                  "red",
+                  "blue"
+                ],
+                "n_objects": 12,
+                "counting_type": "hard",
+                "n_recolored": 7
+              }
+            }
+          ]
+        },
+        {
+          "imgs": [
+            "stimuli/arithmetic.majority_takeover/arithmetic.majority_takeover.t29.combined.png",
+            "stimuli/arithmetic.majority_takeover/arithmetic.majority_takeover.t17.combined.png"
+          ],
+          "family": "arithmetic",
+          "rule": "majority_takeover",
+          "correct": "same",
+          "stimuli": [
+            {
+              "id": "arithmetic.majority_takeover.t29",
               "params": {
                 "event": "recoloring",
                 "condition": [
@@ -1669,16 +1522,193 @@
                 "stimulus": "dots",
                 "colors": [
                   "blue",
+                  "red",
+                  "yellow"
+                ],
+                "n_objects": 12,
+                "counting_type": "hard",
+                "n_recolored": 6
+              }
+            },
+            {
+              "id": "arithmetic.majority_takeover.t17",
+              "params": {
+                "event": "recoloring",
+                "condition": [
+                  "color",
+                  "counting"
+                ],
+                "stimulus": "dots",
+                "colors": [
+                  "yellow",
+                  "red",
+                  "blue"
+                ],
+                "n_objects": 12,
+                "counting_type": "soft",
+                "n_recolored": 6
+              }
+            }
+          ]
+        },
+        {
+          "imgs": [
+            "stimuli/arithmetic.middle_takeover/arithmetic.middle_takeover.t38.combined.png",
+            "stimuli/arithmetic.middle_takeover/arithmetic.middle_takeover.t49.combined.png"
+          ],
+          "family": "arithmetic",
+          "rule": "middle_takeover",
+          "correct": "different",
+          "stimuli": [
+            {
+              "id": "arithmetic.middle_takeover.t38",
+              "params": {
+                "event": "recoloring",
+                "condition": [
+                  "color",
+                  "counting"
+                ],
+                "stimulus": "dots",
+                "colors": [
+                  "yellow",
+                  "blue",
                   "red"
                 ],
-                "n_objects": 7,
+                "n_objects": 9,
                 "counting_type": "soft",
-                "target": "majority_takeover",
                 "n_recolored": 7
               }
             },
             {
-              "id": "arithmetic.majority_takeover.t13",
+              "id": "arithmetic.middle_takeover.t49",
+              "params": {
+                "event": "recoloring",
+                "condition": [
+                  "color",
+                  "counting"
+                ],
+                "stimulus": "dots",
+                "colors": [
+                  "blue",
+                  "red",
+                  "yellow"
+                ],
+                "n_objects": 9,
+                "counting_type": "hard",
+                "n_recolored": 6
+              }
+            }
+          ]
+        },
+        {
+          "imgs": [
+            "stimuli/arithmetic.minority_takeover/arithmetic.minority_takeover.t8.combined.png",
+            "stimuli/arithmetic.minority_takeover/arithmetic.minority_takeover.t37.combined.png"
+          ],
+          "family": "arithmetic",
+          "rule": "minority_takeover",
+          "correct": "different",
+          "stimuli": [
+            {
+              "id": "arithmetic.minority_takeover.t8",
+              "params": {
+                "event": "recoloring",
+                "condition": [
+                  "color",
+                  "counting"
+                ],
+                "stimulus": "dots",
+                "colors": [
+                  "yellow",
+                  "red",
+                  "blue"
+                ],
+                "n_objects": 10,
+                "counting_type": "soft",
+                "n_recolored": 9
+              }
+            },
+            {
+              "id": "arithmetic.minority_takeover.t37",
+              "params": {
+                "event": "recoloring",
+                "condition": [
+                  "color",
+                  "counting"
+                ],
+                "stimulus": "dots",
+                "colors": [
+                  "yellow",
+                  "blue",
+                  "red"
+                ],
+                "n_objects": 8,
+                "counting_type": "soft",
+                "n_recolored": 7
+              }
+            }
+          ]
+        },
+        {
+          "imgs": [
+            "stimuli/arithmetic.majority_takeover/arithmetic.majority_takeover.t49.combined.png",
+            "stimuli/arithmetic.majority_takeover/arithmetic.majority_takeover.t39.combined.png"
+          ],
+          "family": "arithmetic",
+          "rule": "majority_takeover",
+          "correct": "same",
+          "stimuli": [
+            {
+              "id": "arithmetic.majority_takeover.t49",
+              "params": {
+                "event": "recoloring",
+                "condition": [
+                  "color",
+                  "counting"
+                ],
+                "stimulus": "dots",
+                "colors": [
+                  "blue",
+                  "red",
+                  "yellow"
+                ],
+                "n_objects": 12,
+                "counting_type": "hard",
+                "n_recolored": 6
+              }
+            },
+            {
+              "id": "arithmetic.majority_takeover.t39",
+              "params": {
+                "event": "recoloring",
+                "condition": [
+                  "color",
+                  "counting"
+                ],
+                "stimulus": "dots",
+                "colors": [
+                  "blue",
+                  "yellow",
+                  "red"
+                ],
+                "n_objects": 9,
+                "counting_type": "soft",
+                "n_recolored": 4
+              }
+            }
+          ]
+        },
+        {
+          "imgs": [
+            "stimuli/arithmetic.majority_takeover/arithmetic.majority_takeover.t41.combined.png",
+            "stimuli/arithmetic.majority_takeover/arithmetic.majority_takeover.t48.combined.png"
+          ],
+          "family": "arithmetic",
+          "rule": "majority_takeover",
+          "correct": "same",
+          "stimuli": [
+            {
+              "id": "arithmetic.majority_takeover.t41",
               "params": {
                 "event": "recoloring",
                 "condition": [
@@ -1688,11 +1718,30 @@
                 "stimulus": "dots",
                 "colors": [
                   "red",
-                  "blue"
+                  "blue",
+                  "yellow"
                 ],
-                "n_objects": 3,
+                "n_objects": 6,
                 "counting_type": "soft",
-                "target": "majority_takeover",
+                "n_recolored": 3
+              }
+            },
+            {
+              "id": "arithmetic.majority_takeover.t48",
+              "params": {
+                "event": "recoloring",
+                "condition": [
+                  "color",
+                  "counting"
+                ],
+                "stimulus": "dots",
+                "colors": [
+                  "red",
+                  "blue",
+                  "yellow"
+                ],
+                "n_objects": 7,
+                "counting_type": "soft",
                 "n_recolored": 3
               }
             }
@@ -1700,15 +1749,15 @@
         },
         {
           "imgs": [
-            "stimuli/arithmetic.equalize_colors/arithmetic.equalize_colors.t19.combined.png",
-            "stimuli/arithmetic.equalize_colors/arithmetic.equalize_colors.t2.combined.png"
+            "stimuli/arithmetic.majority_takeover/arithmetic.majority_takeover.t40.combined.png",
+            "stimuli/arithmetic.majority_takeover/arithmetic.majority_takeover.t28.combined.png"
           ],
           "family": "arithmetic",
-          "rule": "equalize_colors",
+          "rule": "majority_takeover",
           "correct": "same",
           "stimuli": [
             {
-              "id": "arithmetic.equalize_colors.t19",
+              "id": "arithmetic.majority_takeover.t40",
               "params": {
                 "event": "recoloring",
                 "condition": [
@@ -1718,16 +1767,46 @@
                 "stimulus": "dots",
                 "colors": [
                   "red",
+                  "yellow",
                   "blue"
                 ],
-                "n_objects": 6,
-                "counting_type": "soft",
-                "target": "equalize",
-                "n_recolored": 2
+                "n_objects": 12,
+                "counting_type": "hard",
+                "n_recolored": 6
               }
             },
             {
-              "id": "arithmetic.equalize_colors.t2",
+              "id": "arithmetic.majority_takeover.t28",
+              "params": {
+                "event": "recoloring",
+                "condition": [
+                  "color",
+                  "counting"
+                ],
+                "stimulus": "dots",
+                "colors": [
+                  "red",
+                  "blue",
+                  "yellow"
+                ],
+                "n_objects": 11,
+                "counting_type": "hard",
+                "n_recolored": 6
+              }
+            }
+          ]
+        },
+        {
+          "imgs": [
+            "stimuli/arithmetic.middle_takeover/arithmetic.middle_takeover.t28.combined.png",
+            "stimuli/arithmetic.middle_takeover/arithmetic.middle_takeover.t16.combined.png"
+          ],
+          "family": "arithmetic",
+          "rule": "middle_takeover",
+          "correct": "different",
+          "stimuli": [
+            {
+              "id": "arithmetic.middle_takeover.t28",
               "params": {
                 "event": "recoloring",
                 "condition": [
@@ -1737,46 +1816,16 @@
                 "stimulus": "dots",
                 "colors": [
                   "blue",
+                  "yellow",
                   "red"
                 ],
-                "n_objects": 6,
-                "counting_type": "soft",
-                "target": "equalize",
-                "n_recolored": 2
-              }
-            }
-          ]
-        },
-        {
-          "imgs": [
-            "stimuli/arithmetic.minority_takeover/arithmetic.minority_takeover.t21.combined.png",
-            "stimuli/arithmetic.minority_takeover/arithmetic.minority_takeover.t29.combined.png"
-          ],
-          "family": "arithmetic",
-          "rule": "minority_takeover",
-          "correct": "different",
-          "stimuli": [
-            {
-              "id": "arithmetic.minority_takeover.t21",
-              "params": {
-                "event": "recoloring",
-                "condition": [
-                  "color",
-                  "counting"
-                ],
-                "stimulus": "dots",
-                "colors": [
-                  "red",
-                  "blue"
-                ],
-                "n_objects": 10,
-                "counting_type": "soft",
-                "target": "minority_takeover",
-                "n_recolored": 10
+                "n_objects": 8,
+                "counting_type": "hard",
+                "n_recolored": 5
               }
             },
             {
-              "id": "arithmetic.minority_takeover.t29",
+              "id": "arithmetic.middle_takeover.t16",
               "params": {
                 "event": "recoloring",
                 "condition": [
@@ -1785,77 +1834,28 @@
                 ],
                 "stimulus": "dots",
                 "colors": [
-                  "red",
-                  "blue"
+                  "yellow",
+                  "blue",
+                  "red"
                 ],
                 "n_objects": 9,
                 "counting_type": "soft",
-                "target": "minority_takeover",
-                "n_recolored": 9
+                "n_recolored": 6
               }
             }
           ]
         },
         {
           "imgs": [
-            "stimuli/arithmetic.equalize_colors/arithmetic.equalize_colors.t49.combined.png",
-            "stimuli/arithmetic.equalize_colors/arithmetic.equalize_colors.t17.combined.png"
+            "stimuli/arithmetic.middle_takeover/arithmetic.middle_takeover.t34.combined.png",
+            "stimuli/arithmetic.middle_takeover/arithmetic.middle_takeover.t21.combined.png"
           ],
           "family": "arithmetic",
-          "rule": "equalize_colors",
-          "correct": "same",
-          "stimuli": [
-            {
-              "id": "arithmetic.equalize_colors.t49",
-              "params": {
-                "event": "recoloring",
-                "condition": [
-                  "color",
-                  "counting"
-                ],
-                "stimulus": "dots",
-                "colors": [
-                  "red",
-                  "blue"
-                ],
-                "n_objects": 8,
-                "counting_type": "soft",
-                "target": "equalize",
-                "n_recolored": 2
-              }
-            },
-            {
-              "id": "arithmetic.equalize_colors.t17",
-              "params": {
-                "event": "recoloring",
-                "condition": [
-                  "color",
-                  "counting"
-                ],
-                "stimulus": "dots",
-                "colors": [
-                  "blue",
-                  "red"
-                ],
-                "n_objects": 6,
-                "counting_type": "soft",
-                "target": "equalize",
-                "n_recolored": 2
-              }
-            }
-          ]
-        },
-        {
-          "imgs": [
-            "stimuli/arithmetic.increment_majority_color/arithmetic.increment_majority_color.t40.combined.png",
-            "stimuli/arithmetic.increment_majority_color/arithmetic.increment_majority_color.t20.combined.png"
-          ],
-          "family": "arithmetic",
-          "rule": "increment_majority_color",
+          "rule": "middle_takeover",
           "correct": "different",
           "stimuli": [
             {
-              "id": "arithmetic.increment_majority_color.t40",
+              "id": "arithmetic.middle_takeover.t34",
               "params": {
                 "event": "recoloring",
                 "condition": [
@@ -1864,17 +1864,17 @@
                 ],
                 "stimulus": "dots",
                 "colors": [
-                  "blue",
-                  "red"
+                  "yellow",
+                  "red",
+                  "blue"
                 ],
                 "n_objects": 7,
-                "counting_type": "hard",
-                "target": "majority_increment",
-                "n_recolored": 1
+                "counting_type": "soft",
+                "n_recolored": 5
               }
             },
             {
-              "id": "arithmetic.increment_majority_color.t20",
+              "id": "arithmetic.middle_takeover.t21",
               "params": {
                 "event": "recoloring",
                 "condition": [
@@ -1884,12 +1884,12 @@
                 "stimulus": "dots",
                 "colors": [
                   "blue",
+                  "yellow",
                   "red"
                 ],
-                "n_objects": 5,
-                "counting_type": "soft",
-                "target": "majority_increment",
-                "n_recolored": 1
+                "n_objects": 12,
+                "counting_type": "hard",
+                "n_recolored": 8
               }
             }
           ]
