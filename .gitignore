@@ -1,6 +1,7 @@
 # Ignore generated datasets at the root, but not experiment/fMRI/out/
 /out/
-
+/arc_rule_generator/stimuli/
+/experiment/fMRI/session*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
