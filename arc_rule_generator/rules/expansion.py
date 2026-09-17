@@ -67,9 +67,6 @@ def _generate_expansion(object_count_range, directions, mode):
         _apply_ray(grid_output, centers, directions)
         stimulus = "ray_expansion"
 
-    else:
-        raise ValueError(f"Unknown expansion mode: {mode}")
-
     grid_output.set_multi_cells(centers, COLORS[0])
 
     params = make_params(

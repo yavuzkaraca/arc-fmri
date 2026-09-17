@@ -4,8 +4,10 @@ import matplotlib.pyplot as plt
 
 COLOR_VALUES = {
     "red":  (1.000, 0.365, 0.365),
-    "blue": (0.461, 0.461, 1.000),
-    "gray": (0.500, 0.500, 0.500),
+    "blue": (0.532, 0.532, 1.000),
+    "gray": (0.583, 0.583, 0.583),
+    "green": (0.365, 0.646, 0.365),
+    "yellow": (0.601, 0.601, 0.200),
 }
 
 def save_combined_grids(grid1, grid2, save_path="combined.png"):
