@@ -32,3 +32,4 @@ dependencies:
   - pip
   - pip:
     - mat73          # MATLAB v7.3 .mat file loader (HDF5-based)
+    - pydeface
