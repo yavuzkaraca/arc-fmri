@@ -1,0 +1,20 @@
+{
+    "descriptions": [
+        {
+            "datatype": "func",
+            "suffix": "bold",
+            "id": "task_arc",
+            "custom_entities": [
+                "task-arc",
+                "acq-2p0mm64ch"
+            ],
+            "criteria": {
+                "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_2mm_PRG",
+                "PhaseEncodingDirection": "j-"
+            },
+            "sidecar_changes": {
+                "TaskName": "arc"
+            }
+        }
+    ]
+}
