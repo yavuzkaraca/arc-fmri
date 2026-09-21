@@ -93,7 +93,10 @@ def main():
     bids_root = Path(os.environ["BIDS_ROOT_DIR"])
     qc_dir = bids_root / "derivatives" / "events_qc"
 
-    events_files = sorted(bids_root.glob("sub-*/ses-*/func/*_events.tsv"))
+    events_files = sorted(
+        p for p in bids_root.glob("sub-*/ses-*/func/*_events.tsv")
+        if not p.name.startswith("._")
+    )
     print(f"Found {len(events_files)} events.tsv file(s).")
 
     for events_path in events_files:
