@@ -8,6 +8,7 @@ dependencies:
   - jupyterlab
   - ipywidgets
   - ipykernel
+  - nbstripout
   # Neuroimaging
   - nilearn          # fMRI analysis, masking, GLM, signal extraction, tSNR
   - nipype           # neuroimaging workflow engine; interfaces to FSL, SPM, ANTs etc.
