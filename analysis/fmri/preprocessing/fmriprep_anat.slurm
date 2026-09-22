@@ -21,6 +21,16 @@ set +o allexport
 SUB_ID=$(printf "sub-%02d" $SLURM_ARRAY_TASK_ID)
 echo "$SUB_ID (anat-only: T1w processing + FreeSurfer recon-all)"
 
+# Deface anatomical image using pydeface. Uses the ARC-fMRI conda env's
+# pydeface directly by path (no `conda activate`, which SLURM's
+# non-interactive shell can't rely on) -- overwrites the T1w in place, since
+# fmriprep mounts $BIDS_ROOT_DIR read-only below and must see the defaced
+# version.
+for T1W in "$BIDS_ROOT_DIR/$SUB_ID"/ses-*/anat/*_T1w.nii.gz; do
+    echo "Defacing $T1W"
+    "$CONDA_ENV_BIN/pydeface" "$T1W" --outfile "$T1W" --force
+done
+
 mkdir -p "$BIDS_ROOT_DIR/sourcedata/fmriprep_workdir/$SUB_ID/anat"
 
 docker run --rm --user "$(id -u):$(id -g)" \
