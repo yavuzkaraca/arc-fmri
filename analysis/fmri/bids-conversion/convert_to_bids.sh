@@ -140,7 +140,7 @@ check_unmatched
 # 2026-09-18
 
 dcm2bids \
-    -d $SOURCE_DATA_DIR/JBQS-5TJH/NII \
+    -d $SOURCE_DATA_DIR/4S5X-225L/NII \
     -p sub-06 \
     -s ses-01 \
     -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-06_ses-01.json \
