@@ -7,7 +7,7 @@ function [w, rect] = setup_window(config)
     AssertOpenGL;
 
     PsychImaging('PrepareConfiguration');
-    screenId = max(Screen('Screens'));
+    screenId = 1;
 
     if config.use_windowed_mode
         [w, rect] = PsychImaging('OpenWindow', screenId, config.bg_color, config.window_rect);
