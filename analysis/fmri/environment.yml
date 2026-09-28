@@ -12,6 +12,7 @@ dependencies:
   # Neuroimaging
   - nilearn          # fMRI analysis, masking, GLM, signal extraction, tSNR
   - nipype           # neuroimaging workflow engine; interfaces to FSL, SPM, ANTs etc.
+  - rsatoolbox       # Representational Similarity Analysis
   - pybids           # BIDS dataset querying and validation
   - pydicom          # DICOM inspection for scan QC / sequence metadata
   - nibabel          # NIfTI header inspection (e.g. volume counts for QC)
