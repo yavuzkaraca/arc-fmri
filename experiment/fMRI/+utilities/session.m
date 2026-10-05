@@ -34,7 +34,7 @@ function config = default_config()
     % ---- scanner config ----
     config.use_scanner_trigger = true;
     config.trigger_key_name = 'w';
-    config.TR = 2.0;
+    config.TR = 1.25;
     config.dummy_seconds = 10;
     config.n_dummies = ceil(config.dummy_seconds / config.TR);
 end
