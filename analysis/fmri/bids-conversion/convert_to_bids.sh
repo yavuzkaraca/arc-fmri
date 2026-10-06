@@ -150,3 +150,56 @@ dcm2bids \
     --force_dcm2bids \
     --clobber
 check_unmatched
+
+
+##### SUB-08 #####
+
+# --- ses-01 --- #
+# 2026-09-25
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/U42A-ERJ2/NII \
+    -p sub-08 \
+    -s ses-01 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-08_ses-01.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched
+
+##### SUB-09 #####
+
+# --- ses-01 --- #
+# 2026-09-25
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/P3GJ-HEN4/NII \
+    -p sub-09 \
+    -s ses-01 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-09_ses-01.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched
+
+
+##### SUB-10 #####
+
+# --- ses-10 --- #
+# 2026-09-28
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/HVLP-QDZ6/NII \
+    -p sub-10 \
+    -s ses-01 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-10_ses-01.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched
