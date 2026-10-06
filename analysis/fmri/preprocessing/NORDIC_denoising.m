@@ -1,4 +1,4 @@
-function nii_fpaths_out = NORDIC_denoising(nii_fpaths_in, out_dir, rec_label, overwrite)
+function nii_fpaths_out = NORDIC_denoising(nii_fpaths_in, out_dir, rec_label, overwrite, use_phase)
 % NORDIC_denoising  Run NORDIC on BOLD NIfTIs and write BIDS-valid output.
 %
 %   Outputs are named with a BIDS "reconstruction" entity (default rec-nordic)
@@ -9,7 +9,7 @@ function nii_fpaths_out = NORDIC_denoising(nii_fpaths_in, out_dir, rec_label, ov
 %   the same raw BIDS func/ folder), which is what "Option A" needs so that
 %   fMRIPrep can pick it up from the raw tree via a --bids-filter-file.
 %
-%   nii_fpaths_out = NORDIC_denoising(nii_fpaths_in, out_dir, rec_label, overwrite)
+%   nii_fpaths_out = NORDIC_denoising(nii_fpaths_in, out_dir, rec_label, overwrite, use_phase)
 %
 %   nii_fpaths_in : char or cellstr of magnitude BOLD .nii/.nii.gz paths.
 %                   If empty, every sub-*/**/func/*_bold.nii.gz under
@@ -19,12 +19,21 @@ function nii_fpaths_out = NORDIC_denoising(nii_fpaths_in, out_dir, rec_label, ov
 %   rec_label     : (optional) reconstruction label. Default 'nordic'.
 %   overwrite     : (optional) logical. If false (default) existing outputs are
 %                   skipped, so the script is safe to re-run.
+%   use_phase     : (optional) logical. If true, each magnitude run's phase
+%                   companion (same name with part-mag -> part-phase) is passed
+%                   to NORDIC when it exists, and the output is labelled
+%                   rec-<rec_label>phase (e.g. rec-nordicphase) so it can sit
+%                   next to the magnitude-only rec-<rec_label> output for
+%                   comparison. Runs without a phase image fall back to
+%                   magnitude-only (rec-<rec_label>). If false (default), phase
+%                   images are never used.
 %
 %   Returns the full paths of the written (or pre-existing) NORDIC files.
 
 if nargin < 2, out_dir   = ''; end
 if nargin < 3 || isempty(rec_label), rec_label = 'nordic'; end
 if nargin < 4 || isempty(overwrite), overwrite = false; end
+if nargin < 5 || isempty(use_phase), use_phase = false; end
 
 % ---- Resolve inputs -----------------------------------------------------
 process_all = isempty(nii_fpaths_in);
@@ -47,7 +56,9 @@ if ischar(nii_fpaths_in)
     nii_fpaths_in = {nii_fpaths_in};
 end
 
-% Never re-process an already-NORDIC'd file, and (magnitude-only) skip phase.
+% Never re-process an already-NORDIC'd file (this also catches
+% rec-<rec_label>phase), and never treat a phase image as a magnitude input --
+% phase images are looked up per run below when use_phase is set.
 keep = true(size(nii_fpaths_in));
 for k = 1:numel(nii_fpaths_in)
     [~, nm, ~] = fileparts(nii_fpaths_in{k});
@@ -62,7 +73,6 @@ if ~isempty(out_dir) && ~exist(out_dir, 'dir')
 end
 
 % ---- Fixed NORDIC arguments --------------------------------------------
-nordic_args.magnitude_only       = 1;
 nordic_args.write_gzipped_niftis = 1;
 
 nii_fpaths_out = cell(size(nii_fpaths_in));
@@ -77,8 +87,29 @@ for nf_num = 1:numel(nii_fpaths_in)
         name = name(1:end-4);
     end
 
+    % Optional phase companion: same filename with part-mag -> part-phase.
+    if use_phase
+        if contains(name, 'part-mag')
+            cand = fullfile(src_dir, [strrep(name, 'part-mag', 'part-phase') '.nii' ext]);
+            if exist(cand, 'file')
+                fun_phase = cand;
+            end
+        end
+        if isempty(fun_phase)
+            fprintf('[no phase] magnitude-only for: %s\n', fun_mag);
+        end
+    end
+
+    if isempty(fun_phase)
+        nordic_args.magnitude_only = 1;
+        run_label = rec_label;
+    else
+        nordic_args.magnitude_only = 0;
+        run_label = [rec_label 'phase'];
+    end
+
     % BIDS-valid output stem with rec-<label> inserted in canonical order.
-    out_stem = bids_insert_rec(name, rec_label);
+    out_stem = bids_insert_rec(name, run_label);
 
     % Where to write: beside the source (default) or the shared out_dir.
     if isempty(out_dir)
@@ -95,7 +126,11 @@ for nf_num = 1:numel(nii_fpaths_in)
         continue;
     end
 
-    fprintf('[NORDIC] %s\n     ->  %s\n', fun_mag, out_path);
+    if isempty(fun_phase)
+        fprintf('[NORDIC] %s\n     ->  %s\n', fun_mag, out_path);
+    else
+        fprintf('[NORDIC] %s\n   + %s\n     ->  %s\n', fun_mag, fun_phase, out_path);
+    end
     nordic_args.DIROUT = [target_dir filesep];
     NIFTI_NORDIC(fun_mag, fun_phase, out_stem, nordic_args);
 
