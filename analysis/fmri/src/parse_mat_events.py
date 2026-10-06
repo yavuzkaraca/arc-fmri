@@ -169,14 +169,23 @@ def warn_unmatched(group, all_groups):
     logger.warning(msg)
 
 
-def write_events_tsv(events: pd.DataFrame, bold_file):
-    out_path = Path(bold_file.path.replace("_bold.nii.gz", "_events.tsv"))
+
+def write_events_tsv(events: pd.DataFrame, group):
+    example = group["bold_files"][0]
+    session, task, acq, run = group["key"]
+    parts = [f"sub-{example.entities['subject']}"]
+    if session: parts.append(f"ses-{session}")
+    parts.append(f"task-{task}")
+    if acq:     parts.append(f"acq-{acq}")
+    if run is not None: parts.append(f"run-{int(run):02d}")  # match your run zero-padding
+    out_path = Path(example.dirname) / ("_".join(parts) + "_events.tsv")
     events.to_csv(out_path, sep="\t", index=False, na_rep="n/a")
     logger.info("Wrote %s", out_path)
 
 
+
 def main():
-    load_dotenv()
+    load_dotenv(override=True)
     bids_root = Path(os.environ["BIDS_ROOT_DIR"])
     logfiles_dir = Path(os.environ["SOURCE_DATA_DIR"]) / "experimental_logfiles"
 
@@ -233,8 +242,7 @@ def main():
             log_entry = logs[log_idx]
             group = groups[group_idx]
             events = trials_to_events(log_entry["log_data"])
-            for bold_file in group["bold_files"]:
-                write_events_tsv(events, bold_file)
+            write_events_tsv(events, group)
 
 
 if __name__ == "__main__":
