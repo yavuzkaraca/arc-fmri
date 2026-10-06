@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Two-stage fMRIPrep pipeline for one subject:
   1. fmriprep_anat.slurm  -- anat-only + FreeSurfer recon-all, once.
-  2. fmriprep_func.slurm  -- raw and NORDIC functional runs, both
+  2. fmriprep_func.slurm  -- raw functional runs, plus NORDIC (rec-nordic) and
+     NORDIC-with-phase (rec-nordicphase) runs if they exist for the subject, all
      submitted with --dependency=afterok on stage 1 so they start only
      once recon-all has finished, but run concurrently with each other
      from that point on (they're independent of one another; recon-all
@@ -57,7 +58,16 @@ def main() -> None:
     )
     print(f"  -> job {anat_jobid}")
 
-    for run_label in ("raw", "nordic"):
+    # Only submit a NORDIC stage if that reconstruction exists for this subject.
+    run_labels = ["raw"]
+    sub_dir = Path(os.environ["BIDS_ROOT_DIR"]) / f"sub-{int(args.subject_number):02d}"
+    for rec_label in ("nordic", "nordicphase"):
+        if any(sub_dir.glob(f"**/func/*_rec-{rec_label}_*bold.nii.gz")):
+            run_labels.append(rec_label)
+        else:
+            print(f"No rec-{rec_label} runs under {sub_dir}; skipping {rec_label} stage.")
+
+    for run_label in run_labels:
         print(
             f"Submitting {run_label} functional stage for subject {args.subject_number} "
             f"(waiting on job {anat_jobid})..."

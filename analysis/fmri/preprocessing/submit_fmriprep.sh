@@ -43,7 +43,7 @@ mkdir -p "$HPC_LOG_DIR"
 #     "$SCRIPT_DIR/fmriprep_anat.slurm")
 # echo "  -> job $ANAT_JOBID"
 
-for RUN_LABEL in raw nordic; do
+for RUN_LABEL in raw nordic nordicphase; do
     # echo "Submitting $RUN_LABEL functional stage for subject $SUBJECT_NUM (waiting on job $ANAT_JOBID)..."
     # FUNC_JOBID=$(sbatch --parsable \
     #     --array="$SUBJECT_NUM" \

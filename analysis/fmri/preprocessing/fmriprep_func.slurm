@@ -15,7 +15,7 @@
 # run concurrently once the anat stage completes.
 #
 # Env vars set by submit_fmriprep.sh:
-#   RUN_LABEL         -- "raw" or "nordic"; keeps this run's working
+#   RUN_LABEL         -- "raw", "nordic" or "nordicphase"; keeps this run's working
 #                        directory separate from the other reconstruction's
 #                        concurrent run (a shared nipype workdir is not
 #                        safe for two processes writing at once)
