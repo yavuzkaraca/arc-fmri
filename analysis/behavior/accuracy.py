@@ -9,10 +9,12 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+HERE = Path(__file__).resolve().parent
+
 DEFAULT_DATA_DIR = "/gpfs01/bartels/group/ykaraca/arc-fmri"
 LOGFILES_SUBPATH = Path("bids") / "sourcedata" / "experimental_logfiles"
 LOG_PATTERN = re.compile(r"^log_(p\d+)_(\d{8}T\d{6})\.json$")
-
+DEFAULT_OUT = HERE / "results"
 
 # --------------------------------------------------------------------------- #
 # Loading                                                                     #
@@ -99,7 +101,7 @@ def summarise(df: pd.DataFrame, by: list[str]) -> pd.DataFrame:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("--logfiles-dir", type=Path, help="override the experimental_logfiles folder")
-    parser.add_argument("--out", type=Path, default=Path("results"), help="output folder (default: ./results)")
+    parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help=f"output folder (default: {DEFAULT_OUT})")
     parser.add_argument("--subjects", nargs="*", help="only these participants, e.g. p05 p06")
     args = parser.parse_args()
 
@@ -123,7 +125,6 @@ def main() -> None:
     }
 
     args.out.mkdir(parents=True, exist_ok=True)
-    df.to_csv(args.out / "trials.csv", index=False)
 
     for name, by in summaries.items():
         table = summarise(df, by)
@@ -132,7 +133,6 @@ def main() -> None:
             print(f"\n=== {name} ===")
             print(table.round(3).to_string(index=False))
 
-    print(f"\nSaved trials.csv and {len(summaries)} summary tables to {args.out.resolve()}")
 
 
 if __name__ == "__main__":
