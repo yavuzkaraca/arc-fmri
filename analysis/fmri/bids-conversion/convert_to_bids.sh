@@ -1,0 +1,205 @@
+#!/usr/bin/bash
+set -euo pipefail
+
+# Resolve .env relative to this script's own location rather than the
+# caller's current directory, so the script works no matter where it's
+# invoked from (repo root, bids-conversion/, a SLURM job, etc.).
+# To revert to the old cwd-relative behaviour, replace the two lines below
+# with: source ../.env
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+set -o allexport
+source "$SCRIPT_DIR/../.env"
+set +o allexport
+
+# After each dcm2bids run, warn about any files left unmatched in
+# tmp_dcm2bids (i.e. sidecars with no, or more than one, matching
+# description in the config) so a bad criteria pattern doesn't silently
+# drop a sequence.
+check_unmatched() {
+    local unmatched
+    unmatched=$(find "$BIDS_ROOT_DIR/tmp_dcm2bids" -maxdepth 1 -name '*.nii.gz' 2>/dev/null | wc -l)
+    if [ "$unmatched" -gt 0 ]; then
+        echo "WARNING: $unmatched unmatched file(s) left in $BIDS_ROOT_DIR/tmp_dcm2bids — check your config criteria." >&2
+    fi
+}
+
+# ##### SUB-00 #####
+# # 2026-04-27
+# dcm2bids \
+#     -d $SOURCE_DATA_DIR/2NH5-5UKW/NII \
+#     -p sub-00 \
+#     -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-00.json \
+#     -o $BIDS_ROOT_DIR \
+#     --auto_extract_entities \
+#     --skip_dcm2niix \
+#     --force_dcm2bids
+
+##### SUB-01 #####
+
+# --- ses-01 --- #
+# 2026-05-11
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/GQNB-QVYL/NII \
+    -p sub-01 \
+    -s ses-01 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-01_ses-01.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched
+
+# --- ses-03 --- #
+# 2026-06-10
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/DBO7-2Y3V/NII \
+    -p sub-01 \
+    -s ses-03 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-01_ses-03.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched
+
+##### SUB-03 #####
+
+# --- ses-01 --- #
+# 2026-08-04
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/UYZF-NBPO/NII \
+    -p sub-03 \
+    -s ses-01 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-03_ses-01.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched
+
+
+##### SUB-04 #####
+
+# --- ses-01 --- #
+# 2026-07-31
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/EUNF-2JWT/NII \
+    -p sub-04 \
+    -s ses-01 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-04_ses-01.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched
+
+# --- ses-02 --- #
+# 2026-06-10
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/G6SZ-G2BU/NII \
+    -p sub-04 \
+    -s ses-02 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-04_ses-02.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched
+
+##### SUB-05 #####
+
+# --- ses-01 --- #
+# 2026-09-16
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/JBQS-5TJH/NII \
+    -p sub-05 \
+    -s ses-01 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-05_ses-01.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched
+
+
+##### SUB-06 #####
+
+# --- ses-01 --- #
+# 2026-09-18
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/4S5X-225L/NII \
+    -p sub-06 \
+    -s ses-01 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-06_ses-01.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched
+
+
+##### SUB-08 #####
+
+# --- ses-01 --- #
+# 2026-09-25
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/U42A-ERJ2/NII \
+    -p sub-08 \
+    -s ses-01 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-08_ses-01.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched
+
+##### SUB-09 #####
+
+# --- ses-01 --- #
+# 2026-09-25
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/P3GJ-HEN4/NII \
+    -p sub-09 \
+    -s ses-01 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-09_ses-01.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched
+
+
+##### SUB-10 #####
+
+# --- ses-10 --- #
+# 2026-09-28
+
+dcm2bids \
+    -d $SOURCE_DATA_DIR/HVLP-QDZ6/NII \
+    -p sub-10 \
+    -s ses-01 \
+    -c $ANALYSIS_DIR/bids-conversion/dcm2bids_config_sub-10_ses-01.json \
+    -o $BIDS_ROOT_DIR \
+    --auto_extract_entities \
+    --skip_dcm2niix \
+    --force_dcm2bids \
+    --clobber
+check_unmatched

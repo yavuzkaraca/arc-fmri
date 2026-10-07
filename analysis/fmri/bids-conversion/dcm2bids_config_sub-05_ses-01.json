@@ -1,0 +1,49 @@
+{
+    "descriptions": [
+        {
+            "datatype": "func",
+            "suffix": "bold",
+            "id": "task_arc",
+            "custom_entities": [
+                "task-arc",
+                "acq-2p5mm64ch"
+            ],
+            "criteria": {
+                "SeriesDescription": 
+                "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_2.5mm_PRG",
+                "PhaseEncodingDirection": "j-"
+            },
+            "sidecar_changes": {
+                "TaskName": "arc"
+            }
+        },
+        {
+            "datatype": "fmap",
+            "suffix": "epi",
+            "custom_entities": [
+                "acq-2p5mm64ch",
+                "dir-PA"   
+            ],
+            "criteria": {
+                "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_2.5mm_PRG",
+                "PhaseEncodingDirection": "j"
+            },
+            "sidecar_changes": {
+                "IntendedFor": [
+                    "task_arc"
+                ]
+            }
+        },
+        {
+            "datatype": "anat",
+            "suffix": "T1w",
+            "custom_entities": [
+                "acq-192slices64ch"
+            ],
+            "criteria": {
+                "SeriesDescription": "ADNI_192slices_64channel"
+            }
+        }
+
+    ]
+}

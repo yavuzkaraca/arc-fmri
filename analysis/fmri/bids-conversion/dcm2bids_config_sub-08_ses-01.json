@@ -1,0 +1,95 @@
+{
+    "descriptions": [
+        {
+            "datatype": "func",
+            "suffix": "bold",
+            "id": "task_arc",
+            "custom_entities": [
+                "task-arc",
+                "acq-3p0mm64ch",
+                "part-mag"
+            ],
+            "criteria": {
+                "SeriesDescription": 
+                "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_3.0mm_PRG",
+                "PhaseEncodingDirection": "j-",
+                "ImageType": 
+                ["ORIGINAL", "PRIMARY", "M", "MB", "ND", "NORM", "MOSAIC"]
+            },
+            "sidecar_changes": {
+                "TaskName": "arc"
+            }
+        },
+        {
+            "datatype": "func",
+            "suffix": "bold",
+            "id": "task_arc",
+            "custom_entities": [
+                "task-arc",
+                "acq-3p0mm64ch",
+                "part-phase"
+            ],
+            "criteria": {
+                "SeriesDescription": 
+                "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_3.0mm_PRG",
+                "PhaseEncodingDirection": "j-",
+                "ImageType": 
+                ["ORIGINAL", "PRIMARY", "P", "MB", "ND", "MOSAIC", "PHASE"]
+            },
+            "sidecar_changes": {
+                "TaskName": "arc"
+            }
+        },
+        {
+            "datatype": "fmap",
+            "suffix": "epi",
+            "custom_entities": [
+                "acq-3p0mm64ch",
+                "dir-PA",
+                "part-mag"
+            ],
+            "criteria": {
+                "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_3.0mm_PRG",
+                "PhaseEncodingDirection": "j",
+                "ImageType": 
+                ["ORIGINAL", "PRIMARY", "M", "MB", "ND", "NORM", "MOSAIC"]
+            },
+            "sidecar_changes": {
+                "IntendedFor": [
+                    "task_arc"
+                ]
+            }
+        },
+        {
+            "datatype": "fmap",
+            "suffix": "epi",
+            "custom_entities": [
+                "acq-3p0mm64ch",
+                "dir-PA",
+                "part-phase"
+            ],
+            "criteria": {
+                "SeriesDescription": "cmrr_mbep2d_bold_64ch_MB2_GRAPPA2_3.0mm_PRG",
+                "PhaseEncodingDirection": "j",
+                "ImageType": 
+                ["ORIGINAL", "PRIMARY", "P", "MB", "ND", "MOSAIC", "PHASE"]
+            },
+            "sidecar_changes": {
+                "IntendedFor": [
+                    "task_arc"
+                ]
+            }
+        },
+        {
+            "datatype": "anat",
+            "suffix": "T1w",
+            "custom_entities": [
+                "acq-192slices64ch"
+            ],
+            "criteria": {
+                "SeriesDescription": "ADNI_192slices_64channel"
+            }
+        }
+
+    ]
+}
