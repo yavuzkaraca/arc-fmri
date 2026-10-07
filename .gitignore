@@ -63,6 +63,7 @@ venv.bak/
 
 # MacOS
 .DS_Store
+._.DS_Store*
 
 # Jupyter Notebooks
 .ipynb_checkpoints/
