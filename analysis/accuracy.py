@@ -12,7 +12,6 @@ import pandas as pd
 DEFAULT_DATA_DIR = "/gpfs01/bartels/group/ykaraca/arc-fmri"
 LOGFILES_SUBPATH = Path("bids") / "sourcedata" / "experimental_logfiles"
 LOG_PATTERN = re.compile(r"^log_(p\d+)_(\d{8}T\d{6})\.json$")
-EXPECTED_SESSIONS = 6  # sessions with a log per subject; only used for a warning
 
 
 # --------------------------------------------------------------------------- #
@@ -36,8 +35,6 @@ def find_logs(root: Path, subjects: list[str] | None) -> dict[str, list[Path]]:
 def load_trials(logs: dict[str, list[Path]]) -> pd.DataFrame:
     rows = []
     for participant, paths in logs.items():
-        if len(paths) != EXPECTED_SESSIONS:
-            print(f"WARNING: {participant} has {len(paths)} log files (expected {EXPECTED_SESSIONS}).")
         for session, path in enumerate(paths, start=1):
             data = json.loads(path.read_text(encoding="utf-8"))
             for t in data["trials"]:
