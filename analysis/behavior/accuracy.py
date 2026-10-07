@@ -129,10 +129,8 @@ def main() -> None:
     for name, by in summaries.items():
         table = summarise(df, by)
         table.to_csv(args.out / f"{name}.csv", index=False)
-        if name in {"overall", "by_family"}:
-            print(f"\n=== {name} ===")
-            print(table.round(3).to_string(index=False))
-
+        print(f"\n=== {name} ===")
+        print(table.round(3).to_string(index=False))
 
 
 if __name__ == "__main__":
