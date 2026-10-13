@@ -8,7 +8,7 @@ File names:  <scope>_<metric>_by_<x>[_family].png
   scope   group    one value per participant, summarised ACROSS participants
           subject  one panel / bar / row per participant
   metric  accuracy | rt (reaction time)
-  x       overall | session | session_family | family | rule
+  x       overall | session | session_family | family (accuracy only) | rule (accuracy only)
  
 Confidence intervals
   group plots      mean +- t-interval across participants (participant = unit)
@@ -31,7 +31,6 @@ import matplotlib.patheffects as pe
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.lines import Line2D
 from matplotlib.transforms import blended_transform_factory
 from scipy import stats
@@ -45,8 +44,6 @@ FAMILY_ORDER = ["arithmetic", "attraction", "expansion", "occlusion", "recolor"]
 SURFACE, INK, INK2, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e6e5e1"
 BLUE = "#2a78d6"    # accuracy
 ORANGE = "#eb6834"  # reaction time
-SEQ_BLUE = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf", "#184f95", "#0d366b"]
-CMAP = LinearSegmentedColormap.from_list("seq_blue", SEQ_BLUE)
 DASH = (0, (4, 3))
 LEGEND_STYLE = dict(frameon=False, labelcolor=INK2, fontsize=8.5, handlelength=1.8, columnspacing=1.2)
  
@@ -194,12 +191,13 @@ def pct_axis(ax, low: float = 0.0, step: float = 0.25, ylim: tuple[float, float]
  
 def band_line(ax, x, y, lo, hi, color, *, line_width=2.0, marker_size=5.0, edge_width=1.2,
               ceiling=None) -> None:
-    """A line with markers and a filled band joining the lower and upper interval ends."""
-    lo = np.maximum(np.asarray(lo, float), 0)
-    hi = np.asarray(hi, float)
-    if ceiling is not None:
-        hi = np.minimum(hi, ceiling)
-    ax.fill_between(x, lo, hi, color=color, alpha=0.2, linewidth=0, zorder=2)
+    """A line with markers; with `lo`/`hi`, also a filled band joining the interval ends."""
+    if lo is not None:
+        lo = np.maximum(np.asarray(lo, float), 0)
+        hi = np.asarray(hi, float)
+        if ceiling is not None:
+            hi = np.minimum(hi, ceiling)
+        ax.fill_between(x, lo, hi, color=color, alpha=0.2, linewidth=0, zorder=2)
     ax.plot(x, y, color=color, linewidth=line_width, marker="o", markersize=marker_size,
             markeredgecolor=SURFACE, markeredgewidth=edge_width, zorder=3)
  
@@ -337,9 +335,9 @@ def plot_group_sessions(table: pd.DataFrame, metric: Metric, out: Path, by_famil
 # --------------------------------------------------------------------------- #
 def plot_subject_sessions(table: pd.DataFrame, metric: Metric, out: Path, fname: str, note: str,
                           by_family: bool = False) -> None:
-    """One value per session with its 95 % interval ends joined into a band.
- 
-    Default: one panel per participant. `by_family`: participants as columns, rule families as rows.
+    """One value per session. Default: one panel per participant with its 95 % interval joined
+    into a band. `by_family`: participants as columns, rule families as rows, plain points
+    (one block of 8 trials each, so an interval would add nothing).
     """
     participants = sorted(table["participant"].unique())
     families = family_list(table) if by_family else [None]
@@ -367,7 +365,8 @@ def plot_subject_sessions(table: pd.DataFrame, metric: Metric, out: Path, fname:
         one = one.sort_values("session")
         if metric.is_pct:
             add_chance_line(ax, 0.9 if by_family else 1.0)
-        band_line(ax, one["session"], one[metric.value], one[metric.lo], one[metric.hi], metric.color,
+        band = None if by_family else (one[metric.lo], one[metric.hi])
+        band_line(ax, one["session"], one[metric.value], *(band or (None, None)), metric.color,
                   ceiling=1.0 if metric.is_pct else None, **style)
         style_axes(ax)
         if family is None or family == families[0]:
@@ -382,7 +381,7 @@ def plot_subject_sessions(table: pd.DataFrame, metric: Metric, out: Path, fname:
         else:
             pct_axis(first, low=0.25)
     else:
-        first.set_ylim(0, np.nanmax(table[metric.hi]) * 1.08)
+        first.set_ylim(0, np.nanmax(table[metric.value if by_family else metric.hi]) * 1.08)
     first.set_xticks(range(1, int(table["session"].max()) + 1))
     for ax in axes[-1]:
         ax.set_xlabel("session")
@@ -395,8 +394,10 @@ def plot_subject_sessions(table: pd.DataFrame, metric: Metric, out: Path, fname:
  
  
 WILSON_NOTE = "Band: 95% Wilson interval on that session's trials (treats trials as independent). Dashed: chance."
-WILSON_FAMILY_NOTE = ("Band: 95% Wilson interval on that session's trials in the family, joined across sessions "
-                      "(treats trials as independent; few trials per block, so wide). Dashed: chance.")
+FAMILY_BLOCK_NOTE = {
+    "accuracy": "Each point is one block of 8 trials of that family in that session (fraction correct). Dashed: chance.",
+    "rt": "Each point is one block of 8 trials of that family in that session (median RT of answered trials).",
+}
 BOOTSTRAP_NOTE = "Band: 95% bootstrap interval of the median over that session's answered trials."
  
  
@@ -448,53 +449,6 @@ def plot_group_accuracy_by_family(table: pd.DataFrame, out: Path) -> None:
     ], loc="lower left", ncol=3, bbox_to_anchor=(0.0, -0.2), **{**LEGEND_STYLE, "fontsize": 9})
     ax.set_title("Accuracy by rule family", pad=10)
     finish(fig, out, "group_accuracy_by_family.png", rect=(0, 0, 1, 1))
- 
- 
-# --------------------------------------------------------------------------- #
-# subject_rt_by_family.png (heatmap)                                          #
-# --------------------------------------------------------------------------- #
-def text_color_on(value: float, vmin: float, vmax: float) -> str:
-    """White ink on dark cells, dark ink on light cells."""
-    return "white" if (value - vmin) / (vmax - vmin) > 0.55 else INK
- 
- 
-def draw_heatmap(ax, matrix: pd.DataFrame, vmin: float, vmax: float, fmt, fontsize: int = 10):
-    data = np.ma.masked_invalid(matrix.values.astype(float))
-    cmap = CMAP.copy()
-    cmap.set_bad(SURFACE)
-    image = ax.imshow(data, cmap=cmap, vmin=vmin, vmax=vmax, aspect="auto")
-    n_rows, n_cols = matrix.shape
-    ax.set_xticks(range(n_cols), matrix.columns)
-    ax.set_yticks(range(n_rows), matrix.index)
-    ax.tick_params(length=0)
-    for spine in ax.spines.values():
-        spine.set_visible(False)
-    ax.set_xticks(np.arange(-0.5, n_cols), minor=True)  # 2px gaps between cells
-    ax.set_yticks(np.arange(-0.5, n_rows), minor=True)
-    ax.grid(which="minor", color=SURFACE, linewidth=2)
-    ax.tick_params(which="minor", length=0)
-    for i in range(n_rows):
-        for j in range(n_cols):
-            v = matrix.values[i, j]
-            if np.isnan(v):
-                ax.text(j, i, "–", ha="center", va="center", color=INK2, fontsize=fontsize)
-            else:
-                ax.text(j, i, fmt(v), ha="center", va="center",
-                        color=text_color_on(v, vmin, vmax), fontsize=fontsize)
-    return image
- 
- 
-def plot_subject_rt_by_family(table: pd.DataFrame, out: Path) -> None:
-    families = family_list(table)
-    matrix = table.pivot(index="participant", columns="family", values="rt_median")[families]
-    fig, ax = plt.subplots(figsize=(1.5 * len(families) + 1.5, 0.6 * len(matrix) + 1.6))
-    image = draw_heatmap(ax, matrix, 1.0, 7.0, lambda v: f"{v:.1f}s")
-    colorbar = fig.colorbar(image, ax=ax, fraction=0.04, pad=0.02)
-    colorbar.set_label("seconds", color=INK2)
-    colorbar.outline.set_visible(False)
-    colorbar.ax.tick_params(length=0, colors=INK2)
-    ax.set_title("Median RT by rule family (s)", pad=10)
-    finish(fig, out, "subject_rt_by_family.png", rect=(0, 0, 1, 1))
  
  
 # --------------------------------------------------------------------------- #
@@ -578,25 +532,24 @@ def main() -> None:
     trials = pd.read_csv(args.data)
     tables = {name: summarise(trials, by) for name, by in GROUPINGS.items()}
     session_with_ci = add_subject_intervals(tables["session"])
-    session_family_with_ci = add_subject_intervals(tables["session_family"])
     session_rt_with_ci = bootstrap_median_rt(trials)
  
     # subject level
     plot_subject_overall(tables["overall"], args.out)
     plot_subject_sessions(session_with_ci, ACCURACY, args.out, "subject_accuracy_by_session.png", WILSON_NOTE)
     plot_subject_sessions(session_rt_with_ci, RT, args.out, "subject_rt_by_session.png", BOOTSTRAP_NOTE)
-    plot_subject_sessions(session_family_with_ci, ACCURACY, args.out,
-                          "subject_accuracy_by_session_family.png", WILSON_FAMILY_NOTE, by_family=True)
-    plot_subject_rt_by_family(tables["family"], args.out)
+    for metric, name in ((ACCURACY, "accuracy"), (RT, "rt")):
+        plot_subject_sessions(tables["session_family"], metric, args.out,
+                              f"subject_{name}_by_session_family.png", FAMILY_BLOCK_NOTE[name], by_family=True)
  
     # group level (participant = unit, band = 95 % t-interval across participants)
     plot_group_sessions(tables["session"], ACCURACY, args.out)
     plot_group_sessions(tables["session"], RT, args.out)
     plot_group_sessions(tables["session_family"], ACCURACY, args.out, by_family=True)
+    plot_group_sessions(tables["session_family"], RT, args.out, by_family=True)
     plot_group_accuracy_by_family(tables["family"], args.out)
     plot_group_accuracy_by_rule(tables["rule"], args.out)
  
  
 if __name__ == "__main__":
     main()
- 
