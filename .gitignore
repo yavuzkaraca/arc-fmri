@@ -2,6 +2,8 @@
 /out/
 /arc_rule_generator/stimuli/
 /experiment/fMRI/session*
+/analysis/behavior/data/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,0 +1,4 @@
+model,samples,burn,chains,dic,n_parameters,n_not_converged,not_converged,fitted_at
+session,900,300,2,9219.8,32,0,,2026-10-13T19:35:02
+base,6000,2000,4,9548.5,27,0,,
+family,3000,1000,3,9115.6,59,0,,
