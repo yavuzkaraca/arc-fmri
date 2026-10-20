@@ -10,7 +10,8 @@ Writes  results/ddm/tables/<model>_stats.csv     posterior summary of every para
 Models
   base     v, a, t estimated per participant, drawn from group distributions
   family   drift rate v depends on rule family      (depends_on={"v": "family"})
-  session  v ~ family + session (regression: does evidence quality change over sessions?)
+  context  drift rate v depends on block context    (first/application vs previous/inference)
+  session  v ~ session (regression: does evidence quality change as sessions progress?)
   session_all   v, a and t each ~ session (does learning show up in evidence, boundary or non-decision time?)
  
 Parameters: v = drift rate (evidence quality for the correct answer), a = boundary separation
@@ -22,6 +23,9 @@ Chains are run one after another; use more chains for a trustworthy R-hat.
  
 Usage:  press Run (uses the MODEL / SAMPLES / BURN / CHAINS block below), or
         python fit_ddm.py --model family --samples 6000 --burn 2000 --chains 4
+
+        for example:
+        python src/fit_ddm.py --model context --samples 1000 --burn 300 --chains 3
 """
 from __future__ import annotations
  
@@ -36,10 +40,11 @@ import pandas as pd
 from common import DDM_TRIALS_CSV, RESULTS_DIR
  
 # --- settings used when you press the Run button (no command-line arguments) ---------------
-MODEL = "session"                        # base | family | session | session_all
-SAMPLES, BURN, CHAINS = 900, 300, 2   # quick test run; use 6000, 2000, 4 for a real fit
+MODEL = "context"                        # base | family | context | session | session_all
+SAMPLES, BURN, CHAINS = 1000, 300, 3   # quick test run; use 6000, 2000, 4 for a real fit
 # -------------------------------------------------------------------------------------------
  
+MODEL_NAMES = ["base", "family", "context", "session", "session_all"]
 P_OUTLIER = 0.05
 INCLUDE = ["v", "a", "t"]  # HDDM >= 0.9.8 estimates only what is listed here
 RHAT_LIMIT = 1.1
@@ -50,8 +55,10 @@ def make_model(name: str, data: pd.DataFrame):
         return hddm.HDDM(data, include=INCLUDE, p_outlier=P_OUTLIER)
     if name == "family":
         return hddm.HDDM(data, include=INCLUDE, depends_on={"v": "family"}, p_outlier=P_OUTLIER)
+    if name == "context":
+        return hddm.HDDM(data, include=INCLUDE, depends_on={"v": "context"}, p_outlier=P_OUTLIER)
     if name == "session":
-        return hddm.HDDMRegressor(data, "v ~ C(family) + session_z", include=INCLUDE, p_outlier=P_OUTLIER)
+        return hddm.HDDMRegressor(data, "v ~ session_z", include=INCLUDE, p_outlier=P_OUTLIER)
     if name == "session_all":
         return hddm.HDDMRegressor(data, ["v ~ session_z", "a ~ session_z", "t ~ session_z"],
                                   include=INCLUDE, p_outlier=P_OUTLIER)
@@ -69,7 +76,7 @@ def update_model_summary(path: Path, row: dict) -> None:
  
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--model", choices=["base", "family", "session", "session_all"], default=MODEL)
+    parser.add_argument("--model", choices=MODEL_NAMES, default=MODEL)
     parser.add_argument("--data", type=Path, default=DDM_TRIALS_CSV)
     parser.add_argument("--out", type=Path, default=RESULTS_DIR / "ddm", help="the results/ddm folder")
     parser.add_argument("--samples", type=int, default=SAMPLES)
@@ -112,4 +119,3 @@ def main() -> None:
  
 if __name__ == "__main__":
     main()
- 

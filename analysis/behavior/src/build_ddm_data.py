@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 """Turn the trial-level behaviour CSV into the table HDDM needs.
  
@@ -13,7 +14,8 @@ Columns
   subj_idx   participant (p05, p06, ...)
   rt         reaction time in seconds
   response   1 = correct, 0 = wrong
-  family, rule, session, block, trial_index   as in behavior_trials.csv
+  family, rule, context, session, block, trial_index   as in behavior_trials.csv
+             (context = block context, e.g. first/application vs previous/inference)
   session_z  session number centred and scaled (for regressions on session)
   stim       the correct answer ("same" / "different"), only needed for bias models
  
@@ -46,6 +48,7 @@ def build_ddm_table(trials: pd.DataFrame, min_rt: float) -> pd.DataFrame:
         "response": kept["is_correct"].astype(int),
         "family": kept["family"],
         "rule": kept["rule"],
+        "context": kept["context"],
         "session": kept["session"],
         "block": kept["block"],
         "trial_index": kept["trial_index"],
@@ -62,6 +65,7 @@ def report(table: pd.DataFrame) -> None:
         rt_q95=("rt", lambda r: r.quantile(0.95)))
     print("\n" + per_participant.round(2).to_string())
  
+    print("\ntrials per context:  " + ", ".join(f"{c}: {n}" for c, n in table["context"].value_counts().items()))
     errors = table[table["response"] == 0]
     print(f"\nerror trials: {len(errors)} ({len(errors) / len(table):.1%}); "
           f"median RT correct {table.loc[table['response'] == 1, 'rt'].median():.2f} s, "
