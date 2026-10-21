@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     stimulus_dataset_dir: str = "stimuli"
     output_dir: str = "."
-    participant: str = "p09"  # must be "pXX" where X is a digit
+    participant: str = "p12"  # must be "pXX" where X is a digit
 
     number_of_sessions: int = 10  # must be even number for balancing blocks
     number_of_decision_trials_per_block: int = 8  # decision trials > 2 * number of rules in a family
