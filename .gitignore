@@ -2,6 +2,8 @@
 /out/
 /arc_rule_generator/stimuli/
 /experiment/fMRI/session*
+/analysis/behavior/data/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -63,6 +65,7 @@ venv.bak/
 
 # MacOS
 .DS_Store
+._.DS_Store*
 
 # Jupyter Notebooks
 .ipynb_checkpoints/

@@ -1,0 +1,7 @@
+name: arc-hddm
+channels: [conda-forge]
+dependencies:
+  - python=3.8
+  - pip
+  - gcc_linux-64=12   # older compilers: PyMC 2's code does not build with gcc/gfortran >= 14
+  - gfortran_linux-64=12
