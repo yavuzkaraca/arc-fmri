@@ -1,24 +1,3 @@
-#!/usr/bin/env python
-"""Summarise the trial-level behaviour into tables. No plotting here (see plot.py).
-
-Reads   data/behavior_trials.csv   (made by build_trials.py)
-Writes  results/descriptive/tables/*.csv
-
-Subject tables (one row per participant and group; <name>_subject.csv)
-  overall, session, session_family, family, rule
-  columns: n_trials, n_correct, n_timeouts, accuracy, acc_lo, acc_hi (Wilson 95 %),
-           rt_mean, rt_median, rt_sd, rt_lo, rt_hi (t-interval of the mean RT, answered trials);
-           the session table also has rt_median_lo, rt_median_hi (bootstrap 95 % of the median).
-Group tables (participant = unit; <name>_group.csv)
-  session, session_family, family, rule
-  columns: metric (accuracy | rt_median), the grouping columns, mean, lo, hi, n
-           mean across participants and its 95 % t-interval; n = participants contributing.
-
-Within-participant intervals treat trials as independent, so they are a bit optimistic.
-
-Usage:  python descriptive.py [--data CSV] [--out DIR]
-"""
-
 import argparse
 from pathlib import Path
 

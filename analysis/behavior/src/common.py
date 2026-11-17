@@ -1,14 +1,11 @@
-"""Paths and constants shared by the behavioural analysis scripts.
-
-Layout (this file lives in analysis/behavior/src/):
-  data/                       trial-level inputs, git-ignored
-  results/<analysis>/tables/  CSV summaries written by the analysis scripts
-  results/<analysis>/plots/   PNGs written by plot.py
-  results/ddm/fits/<model>/   raw HDDM chains (large)
-"""
 from __future__ import annotations
-
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
+
+LOGFILES_DIR = Path(os.environ["BEHAVIORAL_DATA_DIR"])
 
 BEHAVIOR_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BEHAVIOR_DIR / "data"
